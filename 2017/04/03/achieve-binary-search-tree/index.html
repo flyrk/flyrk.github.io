@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Tree,JavaScript," />
 
 
 
@@ -87,15 +87,19 @@
 
 
 
-<meta name="description" content="生活需要思考～～">
-<meta property="og:type" content="website">
-<meta property="og:title" content="成长小屋">
-<meta property="og:url" content="https://flyrk.github.io/index.html">
+<meta name="description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
+二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉搜索树JavaScript实现">
+<meta property="og:url" content="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/index.html">
 <meta property="og:site_name" content="成长小屋">
-<meta property="og:description" content="生活需要思考～～">
+<meta property="og:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
+二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
+<meta property="og:updated_time" content="2017-04-03T06:52:28.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="成长小屋">
-<meta name="twitter:description" content="生活需要思考～～">
+<meta name="twitter:title" content="二叉搜索树JavaScript实现">
+<meta name="twitter:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
+二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://flyrk.github.io/"/>
+  <link rel="canonical" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/"/>
 
 
 
 
 
-  <title> 成长小屋 - 生活需要思考～～ </title>
+  <title> 二叉搜索树JavaScript实现 | 成长小屋 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,9 +251,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -281,10 +283,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/04/03/achieve-binary-search-tree/" itemprop="url">
-                  二叉搜索树JavaScript实现
-                </a>
+                二叉搜索树JavaScript实现
               
             
           </h2>
@@ -341,6 +340,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
           
 
@@ -357,9 +361,7 @@
       
 
       
-        
-          
-            <h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。</p>
+        <h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。</p>
 <h3 id="二叉搜索树的遍历与查询"><a href="#二叉搜索树的遍历与查询" class="headerlink" title="二叉搜索树的遍历与查询"></a>二叉搜索树的遍历与查询</h3><p>对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function inorderTreeWalk(x) &#123;</div><div class="line">  if(x!== null) &#123;</div><div class="line">    inorderTreeWalk(x.left);</div><div class="line">    print(x.key);</div><div class="line">    inorderTreeWalk(x.right);</div><div class="line">  &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>当我们想要查询二叉搜索树中某个关键字应该怎么做呢？由于二叉搜索树左子树和右子树的特点，我们很容易写出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function treeSearch(x,k) &#123;  //最开始x代表根节点</div><div class="line">  if(x === null || x.key === k) &#123;</div><div class="line">    return x;</div><div class="line">  &#125;</div><div class="line">  if(k &lt; x.key) &#123;</div><div class="line">    return treeSearch(x.left, k);</div><div class="line">  &#125; else &#123;</div><div class="line">    return treeSearch(x.right, k);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们还可以写出循环版本（一般比递归更高效）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function treeSearch(x, k) &#123;</div><div class="line">  while(x !== null || k !== x.key) &#123;</div><div class="line">    if(k &lt; x.key) &#123;</div><div class="line">      x = x.left;</div><div class="line">    &#125; else &#123;</div><div class="line">      x = x.right;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return x;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -369,186 +371,97 @@
 <p>　　2. 删除操作相对较复杂。假如删除z节点，我们考虑三种情况：z没有子节点、z有一个子节点、z有两个子节点。<br>　　　　- 第一种情况：z没有子节点，则直接删除z，修改父节点属性，用null代替z。<br>　　　　- 第二种情况：z只有一个子节点，则用子节点代替z。<br>　　　　- 第三种情况：z有两个子节点，我们需要找到z的后继y，y肯定在z的右子树并且没有左孩子，当y恰好是z的右子节点，则直接用y替代z，并留下y的右孩子；否则先用y的右子节点替代y，再用y替代z。<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">function transplant(tree, u, v) &#123;  //子树替换父节点方法</div><div class="line">  if(u.p === null) &#123;</div><div class="line">    tree.root = v;</div><div class="line">  &#125; else if(u === u.parent.left) &#123;</div><div class="line">    u.parent.left = v;</div><div class="line">  &#125; else &#123;</div><div class="line">    u.parent.right = v;</div><div class="line">  &#125;</div><div class="line">  if(v !== null) &#123;</div><div class="line">    v.parent = u.parent;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function treeDelete(tree, z) &#123;</div><div class="line">  if(z.left === null) &#123;</div><div class="line">    transplant(tree, z, z.right);</div><div class="line">  &#125; else if(z.right === null) &#123;</div><div class="line">    transplant(tree, z, z.left);</div><div class="line">  &#125; else &#123;</div><div class="line">    let y = treeMinimum(z.right);</div><div class="line">    if(y.parent !== z) &#123;</div><div class="line">      transplant(tree, y, y.right);</div><div class="line">      y.right = z.right;</div><div class="line">      y.right.parent = y;</div><div class="line">    &#125;</div><div class="line">    transplant(tree, z, y);</div><div class="line">    y.left = z.left;</div><div class="line">    y.left.parent = y;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>至此，我们完成了二叉搜索树的js实现。具体算法证明参考《算法导论》</strong></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/03/thoughts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Flyrk">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="成长小屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/03/thoughts/" itemprop="url">
-                  我的博客终于搭好了！
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T00:17:51+08:00">
-                2017-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
           
-
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          
-            <p><strong>花了一个多小时的时间，终于搭好了我的个人博客。。。虽然还很简陋，虽然还什么都没有，但我会慢慢开始记录我的生活和学习。<br>希望能在记录自己的生活中成长吧！</strong></p>
-<p>今天很晚了。。。就先写到这吧～</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/03/thoughts/" rel="next" title="我的博客终于搭好了！">
+                <i class="fa fa-chevron-left"></i> 我的博客终于搭好了！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -556,6 +469,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -575,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -638,6 +564,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是二叉搜索树"><span class="nav-number">1.</span> <span class="nav-text">什么是二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉搜索树的遍历与查询"><span class="nav-number">2.</span> <span class="nav-text">二叉搜索树的遍历与查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉搜索树实现插入和删除操作。"><span class="nav-number">3.</span> <span class="nav-text">二叉搜索树实现插入和删除操作。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -774,6 +716,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
