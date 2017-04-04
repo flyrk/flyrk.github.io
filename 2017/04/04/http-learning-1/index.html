@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="thoughts," />
+  <meta name="keywords" content="HTTP," />
 
 
 
@@ -87,19 +87,27 @@
 
 
 
-<meta name="description" content="花了一个多小时的时间，终于搭好了我的个人博客。。。虽然还很简陋，虽然还什么都没有，但我会慢慢开始记录我的生活和学习。希望能在记录自己的生活中成长吧！
-今天很晚了。。。就先写到这吧～">
+<meta name="description" content="什么是HTTP协议？
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
+为什么说HTTP是无状态的？
+无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的博客终于搭好了！">
-<meta property="og:url" content="https://flyrk.github.io/2017/04/03/thoughts/index.html">
+<meta property="og:title" content="《HTTP权威指南》学习笔记系列(一)">
+<meta property="og:url" content="https://flyrk.github.io/2017/04/04/http-learning-1/index.html">
 <meta property="og:site_name" content="Flyrk的Blog">
-<meta property="og:description" content="花了一个多小时的时间，终于搭好了我的个人博客。。。虽然还很简陋，虽然还什么都没有，但我会慢慢开始记录我的生活和学习。希望能在记录自己的生活中成长吧！
-今天很晚了。。。就先写到这吧～">
-<meta property="og:updated_time" content="2017-04-03T05:35:57.702Z">
+<meta property="og:description" content="什么是HTTP协议？
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
+为什么说HTTP是无状态的？
+无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
+<meta property="og:image" content="https://flyrk.github.io/images/ip-group.jpg">
+<meta property="og:updated_time" content="2017-04-04T14:02:20.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的博客终于搭好了！">
-<meta name="twitter:description" content="花了一个多小时的时间，终于搭好了我的个人博客。。。虽然还很简陋，虽然还什么都没有，但我会慢慢开始记录我的生活和学习。希望能在记录自己的生活中成长吧！
-今天很晚了。。。就先写到这吧～">
+<meta name="twitter:title" content="《HTTP权威指南》学习笔记系列(一)">
+<meta name="twitter:description" content="什么是HTTP协议？
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
+为什么说HTTP是无状态的？
+无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
+<meta name="twitter:image" content="https://flyrk.github.io/images/ip-group.jpg">
 
 
 
@@ -127,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://flyrk.github.io/2017/04/03/thoughts/"/>
+  <link rel="canonical" href="https://flyrk.github.io/2017/04/04/http-learning-1/"/>
 
 
 
 
 
-  <title> 我的博客终于搭好了！ | Flyrk的Blog </title>
+  <title> 《HTTP权威指南》学习笔记系列(一) | Flyrk的Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/03/thoughts/">
+    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Flyrk">
@@ -283,7 +291,7 @@
             
             
               
-                我的博客终于搭好了！
+                《HTTP权威指南》学习笔记系列(一)
               
             
           </h2>
@@ -298,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T00:17:51+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-04T20:43:32+08:00">
+                2017-04-04
               </time>
             
 
@@ -321,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/网络协议/" itemprop="url" rel="index">
+                    <span itemprop="name">网络协议</span>
                   </a>
                 </span>
 
@@ -339,9 +347,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/04/03/thoughts/#comments" itemprop="discussionUrl">
+                <a href="/2017/04/04/http-learning-1/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/04/03/thoughts/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/04/04/http-learning-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,8 +380,45 @@
       
 
       
-        <p><strong>花了一个多小时的时间，终于搭好了我的个人博客。。。虽然还很简陋，虽然还什么都没有，但我会慢慢开始记录我的生活和学习。<br>希望能在记录自己的生活中成长吧！</strong></p>
-<p>今天很晚了。。。就先写到这吧～</p>
+        <h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。</p>
+<h3 id="为什么说HTTP是无状态的？"><a href="#为什么说HTTP是无状态的？" class="headerlink" title="为什么说HTTP是无状态的？"></a>为什么说HTTP是无状态的？</h3><hr>
+<p>无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。<br>缺点就是每一次请求都需要重新发送状态，也就是说服务器不会主动保存之前的状态。一般如果想让应用有状态，会在http协议中加上cookie、session等缓存机制。</p>
+<h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p>在HTTP客户端向服务器发送报文之前，需要用IP地址和端口号在客户端和服务器之间建立一条TCP/IP连接。一般浏览器通过HTTP获取服务器中某个HTML资源过程如下：</p>
+<ul>
+<li>浏览器从URL中解析出服务器的主机名;</li>
+<li>浏览器通过DNS将主机名转换成服务器的IP地址;</li>
+<li>浏览器将端口号(默认80)从URL中解析出来;</li>
+<li>浏览器建立一条与Web服务器的TCP连接;</li>
+<li>浏览器向服务器发送一条HTTP请求报文;</li>
+<li>服务器向浏览器回送一条HTTP响应报文;</li>
+<li>关闭连接，浏览器渲染文档并显示;</li>
+</ul>
+<p>当然上述只是简单的描述，其中还有很多具体的步骤我们以后再说。</p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><hr>
+<p>我们知道，HTTP协议依赖TCP/IP来进行通信。那么什么是TCP/IP呢？TCP/IP是全球计算机网络都在使用的一种常用的分组交换网络分层协议集。</p>
+<h4 id="TCP数据传输"><a href="#TCP数据传输" class="headerlink" title="TCP数据传输"></a>TCP数据传输</h4><ul>
+<li>TCP为HTTP提供了一条可靠的比特传输管道。从TCP连接一端填入的字节会从另一端以原有的顺序正确地传送出来。</li>
+<li>传输的数据是通过称为IP分组的小数据块来发送的。每个IP分组都包括：<ul>
+<li>一个IP分组首部（通常为20字节）;</li>
+<li>一个TCP段首部（通常为20字节）;</li>
+<li>一个TCP数据块（0个或多个字节）;<br><img src="/images/ip-group.jpg" alt="ip分组" title="IP分组"></li>
+</ul>
+</li>
+<li>TCP连接通过4个值来识别：&lt;源IP地址、源端口号、目的IP地址、目的端口号&gt;，这4个值一起唯一地定义了一条连接。<h3 id="TCP性能考虑"><a href="#TCP性能考虑" class="headerlink" title="TCP性能考虑"></a>TCP性能考虑</h3></li>
+<li><strong>HTTP事务的时延</strong>：一般影响HTTP事务的时延主要有以下几点原因：<ol>
+<li>解析主机名：首次解析主机名需要通过DNS解析系统将URI中的主机名转换成一个IP地址，这可能要花费不少时间;如果没有缓存DNS，则以后的每次访问都需要重新解析DNS，带来巨大时间消耗。</li>
+<li>发送TCP连接请求：每条新的TCP连接都会有连接建立时延，如果同时发送上百条连接，则所耗时间大大增加。</li>
+<li>连接建立完后，客户端会通过新建立的TCP管道发送HTTP请求报文，服务器接收到报文后会对请求进行处理。这其中传输报文、处理报文都需要花费时间;服务器处理完报文后回送响应报文也需要传输时间<br>总的来说，硬件速度、客户端和服务器的负载量、客户端与服务器之间的距离、报文的大小等会对时延产生巨大影响。</li>
+</ol>
+</li>
+<li><strong>TCP握手时延</strong>：TCP连接需要经过三次握手，一般步骤如下：<ol>
+<li>请求新的TCP连接，客户端向服务器发送一个TCP分组（通常40～60字节）。分组中设置了一个特殊的SYN标记，说明是连接请求。</li>
+<li>服务器接受连接，对连接参数进行计算，向客户端回送一个TCP分组，分组中的SYN和ACK标记都被置位，告诉客户端请求已接受。</li>
+<li>客户端向服务器回送一条确认信息的TCP分组，包含ACK标记，告诉服务器连接已成功建立。（现代的TCP栈允许客户端在这个确认分组中发送数据）</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
@@ -403,7 +448,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/thoughts/" rel="tag"># thoughts</a>
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
           
         </div>
       
@@ -416,15 +461,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/04/03/achieve-binary-search-tree/" rel="next" title="二叉搜索树JavaScript实现">
+                <i class="fa fa-chevron-left"></i> 二叉搜索树JavaScript实现
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/03/achieve-binary-search-tree/" rel="prev" title="二叉搜索树JavaScript实现">
-                二叉搜索树JavaScript实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -501,8 +546,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -575,6 +629,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是HTTP协议？"><span class="nav-number">1.</span> <span class="nav-text">什么是HTTP协议？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说HTTP是无状态的？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么说HTTP是无状态的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP连接"><span class="nav-number">2.</span> <span class="nav-text">HTTP连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接"><span class="nav-number">2.1.</span> <span class="nav-text">TCP连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP数据传输"><span class="nav-number">2.1.1.</span> <span class="nav-text">TCP数据传输</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP性能考虑"><span class="nav-number">2.2.</span> <span class="nav-text">TCP性能考虑</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -735,9 +805,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://flyrk.github.io/2017/04/03/thoughts/';
-          this.page.identifier = '2017/04/03/thoughts/';
-          this.page.title = '我的博客终于搭好了！';
+          this.page.url = 'https://flyrk.github.io/2017/04/04/http-learning-1/';
+          this.page.identifier = '2017/04/04/http-learning-1/';
+          this.page.title = '《HTTP权威指南》学习笔记系列(一)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://flyrk-github-io.disqus.com/embed.js';
