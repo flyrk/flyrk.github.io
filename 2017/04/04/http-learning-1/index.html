@@ -92,17 +92,17 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
 为什么说HTTP是无状态的？
 无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《HTTP权威指南》学习笔记系列(一)">
+<meta property="og:title" content="深入学习HTTP连接">
 <meta property="og:url" content="https://flyrk.github.io/2017/04/04/http-learning-1/index.html">
-<meta property="og:site_name" content="Flyrk的Blog">
+<meta property="og:site_name" content="Flyrk's Blog">
 <meta property="og:description" content="什么是HTTP协议？
 HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
 为什么说HTTP是无状态的？
 无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
 <meta property="og:image" content="https://flyrk.github.io/images/ip-group.jpg">
-<meta property="og:updated_time" content="2017-04-04T14:02:20.779Z">
+<meta property="og:updated_time" content="2017-04-06T12:43:32.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《HTTP权威指南》学习笔记系列(一)">
+<meta name="twitter:title" content="深入学习HTTP连接">
 <meta name="twitter:description" content="什么是HTTP协议？
 HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
 为什么说HTTP是无状态的？
@@ -141,7 +141,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
 
 
 
-  <title> 《HTTP权威指南》学习笔记系列(一) | Flyrk的Blog </title>
+  <title> 深入学习HTTP连接 | Flyrk's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -177,7 +177,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Flyrk的Blog</span>
+        <span class="site-title">Flyrk's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -279,7 +279,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Flyrk的Blog">
+      <meta itemprop="name" content="Flyrk's Blog">
     </span>
 
     
@@ -291,7 +291,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
             
             
               
-                《HTTP权威指南》学习笔记系列(一)
+                深入学习HTTP连接
               
             
           </h2>
@@ -418,6 +418,10 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
 <li>客户端向服务器回送一条确认信息的TCP分组，包含ACK标记，告诉服务器连接已成功建立。（现代的TCP栈允许客户端在这个确认分组中发送数据）</li>
 </ol>
 </li>
+<li><strong>TCP延迟确认</strong>：TCP有自己的确认机制来确保数据成功传输。每个TCP段都有一个序列号和数据完整性校验和。一般确认报文很小，所以TCP允许将确认报文和输出的数据分组组合在一起传输，这里就引入了一个“延迟确认”算法。“延迟确认”算法会在一个特定的窗口时间（通常100～200ms）内将输出确认存放在缓存区，以寻找能携带它的输出数据分组，如果在特定时间内没有输出数据分组，就将确认信息放在单独的分组进行传输。但这样一般会引入比较大的时延，所以不一定完全要用延迟算法。</li>
+<li><strong>TCP慢启动</strong>：为了防止网络负载过大和阻塞，TCP连接会采取慢启动，也就是说一开始限制连接的最大速度，随着数据的传输成功，慢慢增大传输速度。例如建立一个新连接，先发送一个分组，等确认成功后，才可以发送两个分组，等都被确认后，就可以发送四个分组，以此类推。。。<br>由于这种特性，新连接的传输速度会比已经交换过一定量数据的、“已调谐”连接慢一些。</li>
+<li><strong>Nagle算法问题</strong>：由于TCP允许将任意尺寸数据放入TCP栈中传输，所以如果TCP发送了大量包含少量数据的分组，则网络性能就会很低，浪费很多流量。Nagle算法就是用来解决此类问题。该算法试图在发送一个分组之前，将大量TCP数据绑定在一起来提高网络效率。<br>Nagle算法希望发送全尺寸（LAN上最大尺寸的分组大约1500字节，Internet上是几百字节）的段。如果其他分组任然在传输过程中，就将那部分数据缓存起来，只有当挂起分组被确认，或者缓存中积累了足够发送一个全尺寸的分组后才将缓存的数据传输出去。这样就会带来性能问题，如果HTTP报文很小，一直达不到全尺寸，就会一直在等待那些永远不会到来的数据而引起时延;而且Nagle算法会阻止数据传输直到有确认分组抵达，但确认分组自身又有延迟。<br>所以HTTP应用程序可以通过设置参数TCP_NODELAY来禁用Nagle算法，但是这样要确保会向TCP写入大块数据，而避免传输数量多的小分组。</li>
+<li><strong>TIME_WAIT、端口耗尽</strong>：TCP关闭某个连接时，会在内存中维护一个小的控制块，用来记录最近所关闭连接的IP地址和端口号，通常维持2MSL（2分钟）左右。这样可以防止在两分钟内创建、关闭并重新创建两个具有相同IP地址和端口号的连接。但这样就会限制可用端口号的数量，降低连接率。要确保不会遇到TIME_WAIT端口耗尽问题，可以增加客户端负载生成机器的数量，或者确保客户端和服务器在循环使用几个虚拟IP地址以增加更多的连接组合。</li>
 </ul>
 
       
@@ -470,6 +474,10 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/06/Closures-learning/" rel="prev" title="对闭包的理解">
+                对闭包的理解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -571,7 +579,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -582,7 +590,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -593,7 +601,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -807,7 +815,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
         var disqus_config = function () {
           this.page.url = 'https://flyrk.github.io/2017/04/04/http-learning-1/';
           this.page.identifier = '2017/04/04/http-learning-1/';
-          this.page.title = '《HTTP权威指南》学习笔记系列(一)';
+          this.page.title = '深入学习HTTP连接';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://flyrk-github-io.disqus.com/embed.js';

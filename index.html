@@ -87,15 +87,15 @@
 
 
 
-<meta name="description" content="每天进步一点点～">
+<meta name="description" content="生活需要想象与创造">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Flyrk的Blog">
+<meta property="og:title" content="Flyrk's Blog">
 <meta property="og:url" content="https://flyrk.github.io/index.html">
-<meta property="og:site_name" content="Flyrk的Blog">
-<meta property="og:description" content="每天进步一点点～">
+<meta property="og:site_name" content="Flyrk's Blog">
+<meta property="og:description" content="生活需要想象与创造">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Flyrk的Blog">
-<meta name="twitter:description" content="每天进步一点点～">
+<meta name="twitter:title" content="Flyrk's Blog">
+<meta name="twitter:description" content="生活需要想象与创造">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <title> Flyrk的Blog - 每天进步一点点～ </title>
+  <title> Flyrk's Blog - 生活需要想象与创造 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Flyrk的Blog</span>
+        <span class="site-title">Flyrk's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -260,6 +260,189 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Flyrk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Flyrk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/06/Closures-learning/" itemprop="url">
+                  对闭包的理解
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-06T20:45:59+08:00">
+                2017-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS基础/" itemprop="url" rel="index">
+                    <span itemprop="name">JS基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/06/Closures-learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/06/Closures-learning/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li>
+</ul>
+<hr>
+<h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3><p>我们先来看个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        a++;</div><div class="line">        <span class="built_in">console</span>.log(a);</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> f = func();</div><div class="line">f();    <span class="comment">// 1</span></div><div class="line">f();    <span class="comment">// 2</span></div><div class="line">f();    <span class="comment">// 3</span></div></pre></td></tr></table></figure></p>
+<p>当退出函数后，变量a并没有消失，因为调用var f = func();时，f返回了一个匿名函数的引用，而它可以访问到func()被调用时执行的环境，局部变量a则处在这个环境中，所以a可以被外界访问。这里就产生了所谓的闭包，局部变量a的生命周期被延长了。<br>我们知道，当func()执行后，通常会期待func()内部作用域全部被销毁，因为JS引擎有垃圾回收器用来释放不再使用的内存空间。当某个函数执行完后，一般我们都认为它已经不再使用了，自然会考虑对其回收。而闭包的作用就是让内部作用域依然存在，f()就是对该作用域的引用，而这个引用就叫做闭包。</p>
+<hr>
+<h3 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h3><ul>
+<li>封装变量：把一些不需要暴露在全局的变量封装成“私有变量”。</li>
+<li>延长局部变量寿命：使其不会在退出函数时就立即销毁。</li>
+<li>将函数在定义时的词法作用域以外的地方调用使其可以继续访问定义时的词法作用域。</li>
+</ul>
+<hr>
+<h3 id="闭包与面向对象设计"><a href="#闭包与面向对象设计" class="headerlink" title="闭包与面向对象设计"></a>闭包与面向对象设计</h3><ul>
+<li>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。</li>
+<li><p>闭包实现命令模式:命令模式的意图是把请求封装为对象，从而分离请求的发起者和请求的接收者之间的耦合关系。用闭包实现命令模式如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> createCommand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> excute = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> receiver.open();</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">var</span> undo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> receiver.close();</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">excute</span>: excute,</div><div class="line">        <span class="attr">undo</span>: undo</div><div class="line">    &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>闭包与内存管理:使用闭包的一部分原因是我们选择主动把一些变量封装在闭包中，因为可能在以后还需要使用这些变量，把这些变量放在闭包中和放在全局作用域中对内存方面的影响是一致的。如果在将来需要回收这些变量，可以手动把变量设置为null。</p>
+</li>
+</ul>
+<hr>
+<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><p>在定时器、事件监听器、Ajax请求、跨窗口通信、Web Workders或者任何其他的异步（或者同步）任务中，只要使用了回调函数，实际上就是在使用闭包。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">wait</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log( message );</div><div class="line">    &#125;, <span class="number">1000</span> );</div><div class="line">&#125;</div><div class="line"></div><div class="line">wait(<span class="string">"This is a closure!"</span>);</div></pre></td></tr></table></figure></p>
+<p>在这里我们将一个内部函数timer传递给setTimeou，timer具有涵盖wait(…)作用域的闭包，因此包含对变量message的引用。wait(…)执行1000毫秒后，它的内部作用域并不会消失，timer依然保有wait(…)作用域的闭包。</p>
+<hr>
+<h3 id="经典闭包问题"><a href="#经典闭包问题" class="headerlink" title="经典闭包问题"></a>经典闭包问题</h3><p>考虑如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们期待是输出0～5，每隔一秒输出一个数字。但实际上这段代码运行结果是每隔一秒输出一个5。想想就知道，setTimeout设置的延迟函数相当于异步调用，在循环后才执行，而循环结束后i为5,所以输出也就为5。那么问题出在哪呢？<br>我们以为循环时每个迭代都会“捕获”一个i的副本，但是根据作用域工作原理，尽管循环中的五个函数是在不同的迭代定义的，但它们共享一个全局作用域，因此只有一个全局变量i。<br>怎么解决？在循环的每个迭代创建一个闭包作用域。这里就用到IIFE函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(i);</div><div class="line">        &#125;, i * <span class="number">1000</span>);</div><div class="line">    &#125;)(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样问题就解决了，我们在每个循环创造一个IIFE匿名函数，并传入全局变量i，使得每个作用域都收到不同的局部变量i并用闭包保存下来，最后输出时就能正确输出i值了。<br>其实我们的解决方法本质上就是每次迭代都需要一个块作用域。在ES6里用let就能很好解决这个问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>因为let声明在每次迭代都会声明i，随后的每个迭代都会使用上一个迭代结束时的值来初始化这个变量。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -269,7 +452,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Flyrk的Blog">
+      <meta itemprop="name" content="Flyrk's Blog">
     </span>
 
     
@@ -283,7 +466,7 @@
               
                 
                 <a class="post-title-link" href="/2017/04/04/http-learning-1/" itemprop="url">
-                  《HTTP权威指南》学习笔记系列(一)
+                  深入学习HTTP连接
                 </a>
               
             
@@ -408,6 +591,10 @@
 <li>客户端向服务器回送一条确认信息的TCP分组，包含ACK标记，告诉服务器连接已成功建立。（现代的TCP栈允许客户端在这个确认分组中发送数据）</li>
 </ol>
 </li>
+<li><strong>TCP延迟确认</strong>：TCP有自己的确认机制来确保数据成功传输。每个TCP段都有一个序列号和数据完整性校验和。一般确认报文很小，所以TCP允许将确认报文和输出的数据分组组合在一起传输，这里就引入了一个“延迟确认”算法。“延迟确认”算法会在一个特定的窗口时间（通常100～200ms）内将输出确认存放在缓存区，以寻找能携带它的输出数据分组，如果在特定时间内没有输出数据分组，就将确认信息放在单独的分组进行传输。但这样一般会引入比较大的时延，所以不一定完全要用延迟算法。</li>
+<li><strong>TCP慢启动</strong>：为了防止网络负载过大和阻塞，TCP连接会采取慢启动，也就是说一开始限制连接的最大速度，随着数据的传输成功，慢慢增大传输速度。例如建立一个新连接，先发送一个分组，等确认成功后，才可以发送两个分组，等都被确认后，就可以发送四个分组，以此类推。。。<br>由于这种特性，新连接的传输速度会比已经交换过一定量数据的、“已调谐”连接慢一些。</li>
+<li><strong>Nagle算法问题</strong>：由于TCP允许将任意尺寸数据放入TCP栈中传输，所以如果TCP发送了大量包含少量数据的分组，则网络性能就会很低，浪费很多流量。Nagle算法就是用来解决此类问题。该算法试图在发送一个分组之前，将大量TCP数据绑定在一起来提高网络效率。<br>Nagle算法希望发送全尺寸（LAN上最大尺寸的分组大约1500字节，Internet上是几百字节）的段。如果其他分组任然在传输过程中，就将那部分数据缓存起来，只有当挂起分组被确认，或者缓存中积累了足够发送一个全尺寸的分组后才将缓存的数据传输出去。这样就会带来性能问题，如果HTTP报文很小，一直达不到全尺寸，就会一直在等待那些永远不会到来的数据而引起时延;而且Nagle算法会阻止数据传输直到有确认分组抵达，但确认分组自身又有延迟。<br>所以HTTP应用程序可以通过设置参数TCP_NODELAY来禁用Nagle算法，但是这样要确保会向TCP写入大块数据，而避免传输数量多的小分组。</li>
+<li><strong>TIME_WAIT、端口耗尽</strong>：TCP关闭某个连接时，会在内存中维护一个小的控制块，用来记录最近所关闭连接的IP地址和端口号，通常维持2MSL（2分钟）左右。这样可以防止在两分钟内创建、关闭并重新创建两个具有相同IP地址和端口号的连接。但这样就会限制可用端口号的数量，降低连接率。要确保不会遇到TIME_WAIT端口耗尽问题，可以增加客户端负载生成机器的数量，或者确保客户端和服务器在循环使用几个虚拟IP地址以增加更多的连接组合。</li>
 </ul>
 
           
@@ -461,7 +648,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Flyrk的Blog">
+      <meta itemprop="name" content="Flyrk's Blog">
     </span>
 
     
@@ -623,7 +810,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Flyrk的Blog">
+      <meta itemprop="name" content="Flyrk's Blog">
     </span>
 
     
@@ -805,7 +992,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -816,7 +1003,7 @@
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -827,7 +1014,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
