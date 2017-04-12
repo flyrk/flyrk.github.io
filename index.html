@@ -270,6 +270,334 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/12/webpage-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Flyrk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Flyrk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/12/webpage-optimize/" itemprop="url">
+                  Web性能优化方案
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T23:05:47+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web相关/" itemprop="url" rel="index">
+                    <span itemprop="name">Web相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/12/webpage-optimize/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/12/webpage-optimize/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在准备面试，就看了许多关于web性能优化方面的内容，现在先把它们大概记下来，以后还会补充：</p>
+<ul>
+<li>压缩源码和图片：选择合适图片格式：图片颜色较多就用jpg格式，颜色数较少就用png格式，能通过服务器端判断浏览器支持webP，就用WebP格式和svg格式;开启服务器端Gzip压缩，尽量减少每一个资源的体积</li>
+<li><p>合并静态资源：包括css、javascript和小图片，如雪碧图，减少http请求</p>
+</li>
+<li><p>使用CDN：使用第三方提供的静态资源地址。一方面增加并发下载量，另一方面能够和其他网站共享缓存<br>延长静态缓存时间，设置expires、cache-control时间、etag标签，尽量使用强缓存。</p>
+</li>
+<li>css放在页面头部，js放在页面底部</li>
+<li>能使用原生css实现的样式就尽量使用原生css，避免使用雪碧图增加请求。</li>
+<li>异步加载js，提高首屏加载速度，其他静态资源等到用户需要时再加载。js异步加载可以设置script标签async。</li>
+<li>因为事件冒泡机制，最好使用事件代理，减少注册监听事件的dom数量，提高性能。</li>
+<li>第一次加载dom元素后将其用变量缓存，避免下次使用时再重新获取dom元素。</li>
+<li>使用localStorage缓存一些静态数据，避免去服务器查询。</li>
+<li>静态资源缓存更新，在更新的文件名后面加上hash值使其url不同而发起新的连接使其缓存更新。</li>
+<li>减少dom元素，可用到虚拟dom思想，用对象缓存dom树，通过diff算法得到一个 patch，然后最后再渲染真正的dom。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/10/cross-origin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Flyrk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Flyrk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/10/cross-origin/" itemprop="url">
+                  cross-origin
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-10T23:05:26+08:00">
+                2017-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/10/cross-origin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/10/cross-origin/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。<br>由于浏览器的<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">同源策略</a>，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：</p>
+<h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p>我们可以在要传输数据的两个页面设置相同的document.domain=”<a href="http://www.example.com&quot;，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如&quot;www.a.com&quot;和&quot;bt.a.com&quot;，但&quot;a.com&quot;和&quot;b.com&quot;就不行。">http://www.example.com&quot;，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如&quot;www.a.com&quot;和&quot;bt.a.com&quot;，但&quot;a.com&quot;和&quot;b.com&quot;就不行。</a></p>
+<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>因为浏览器窗口共用一个window.name，利用这种hack设置window.name为传输的数据，可以在同一个窗口页面内进行数据传输。但缺陷是数据量不会太大，并且只能传输字符串。</p>
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>HTML5新增的CORS方案。简单来说就是在服务器端设置Access-Control-Allow-Origin：*则代表允许任何域连接，也可以设置为想要连接的域地址。</p>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>利用script标签的src获取url可以实现跨域，通过在url中设置callback参数，url返回的是json数据，然后在客户端设置回调函数处理数据，就可以实现跨域。但缺点是只能用于get方法。</p>
+<h2 id="postMessage方法"><a href="#postMessage方法" class="headerlink" title="postMessage方法"></a>postMessage方法</h2><p>HTML5新增window.postMessage(message, targetOrigin, [transfer)方法，message代表传输的数据，targetOrigin代表接受的目标域，transfer是可选变量，代表跟随message一起传输的数据，且传输过去后在发送端不再可用。<br>接受端通过监听message事件，调用event.data来获取数据。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -706,8 +1034,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络协议/" itemprop="url" rel="index">
-                    <span itemprop="name">网络协议</span>
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
 
@@ -1193,7 +1521,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1204,7 +1532,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1215,7 +1543,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
