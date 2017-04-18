@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
-二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
+<meta name="description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉搜索树JavaScript实现">
 <meta property="og:url" content="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/index.html">
 <meta property="og:site_name" content="Flyrk's Blog">
-<meta property="og:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
-二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
-<meta property="og:updated_time" content="2017-04-09T08:43:05.384Z">
+<meta property="og:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。">
+<meta property="og:updated_time" content="2017-04-18T12:58:34.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二叉搜索树JavaScript实现">
-<meta name="twitter:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。
-二叉搜索树的遍历与查询对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。1234567function inorderTreeWalk(x) &amp;#123;  if(x!== null) &amp;#123;    inorderTreeWa">
+<meta name="twitter:description" content="什么是二叉搜索树其形式就是二叉树，对于每个节点x，其左子树的值&amp;lt;=x.value，右子树的值&amp;gt;=x.value。">
 
 
 
@@ -382,7 +379,7 @@
       
 
       
-        <h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。</p>
+        <h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br><a id="more"></a></p>
 <h3 id="二叉搜索树的遍历与查询"><a href="#二叉搜索树的遍历与查询" class="headerlink" title="二叉搜索树的遍历与查询"></a>二叉搜索树的遍历与查询</h3><p>对于二叉搜索树，我们可以使用中序遍历，得到树上从小到大所有的元素。时间复杂度平均为O(n)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function inorderTreeWalk(x) &#123;</div><div class="line">  if(x!== null) &#123;</div><div class="line">    inorderTreeWalk(x.left);</div><div class="line">    print(x.key);</div><div class="line">    inorderTreeWalk(x.right);</div><div class="line">  &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>当我们想要查询二叉搜索树中某个关键字应该怎么做呢？由于二叉搜索树左子树和右子树的特点，我们很容易写出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function treeSearch(x,k) &#123;  //最开始x代表根节点</div><div class="line">  if(x === null || x.key === k) &#123;</div><div class="line">    return x;</div><div class="line">  &#125;</div><div class="line">  if(k &lt; x.key) &#123;</div><div class="line">    return treeSearch(x.left, k);</div><div class="line">  &#125; else &#123;</div><div class="line">    return treeSearch(x.right, k);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们还可以写出循环版本（一般比递归更高效）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function treeSearch(x, k) &#123;</div><div class="line">  while(x !== null || k !== x.key) &#123;</div><div class="line">    if(k &lt; x.key) &#123;</div><div class="line">      x = x.left;</div><div class="line">    &#125; else &#123;</div><div class="line">      x = x.right;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return x;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>

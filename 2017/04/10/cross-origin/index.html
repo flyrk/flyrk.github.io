@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：
-document.domain我们可以在要传输数据的两个页面设置相同的document.domain=”www.example.com”，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如”www.">
+<meta name="description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器跨域问题">
 <meta property="og:url" content="https://flyrk.github.io/2017/04/10/cross-origin/index.html">
 <meta property="og:site_name" content="Flyrk's Blog">
-<meta property="og:description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：
-document.domain我们可以在要传输数据的两个页面设置相同的document.domain=”www.example.com”，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如”www.">
-<meta property="og:updated_time" content="2017-04-12T15:23:30.852Z">
+<meta property="og:description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：">
+<meta property="og:updated_time" content="2017-04-18T12:58:04.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器跨域问题">
-<meta name="twitter:description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：
-document.domain我们可以在要传输数据的两个页面设置相同的document.domain=”www.example.com”，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如”www.">
+<meta name="twitter:description" content="最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。由于浏览器的同源策略，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：">
 
 
 
@@ -382,7 +379,7 @@ document.domain我们可以在要传输数据的两个页面设置相同的docum
       
 
       
-        <p>最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。<br>由于浏览器的<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">同源策略</a>，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：</p>
+        <p>最近经常看到有关浏览器跨域的问题，查了很多资料，所以在这总结一下。<br>由于浏览器的<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">同源策略</a>，当我们想要进行一个ajax请求或者获取其他域名的数据时就会出现跨域问题。避免跨域问题可以有以下几种方法：<br><a id="more"></a></p>
 <h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p>我们可以在要传输数据的两个页面设置相同的document.domain=”www.example.com”，使其主域相同。但这只有当两个页面的主域相同时才能设置。比如”www.a.com”和”bt.a.com”，但”a.com”和”b.com”就不行。</p>
 <h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>因为浏览器窗口共用一个window.name，利用这种hack设置window.name为传输的数据，可以在同一个窗口页面内进行数据传输。但缺陷是数据量不会太大，并且只能传输字符串。</p>
 <h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>HTML5新增的CORS方案。简单来说就是在服务器端设置Access-Control-Allow-Origin：*则代表允许任何域连接，也可以设置为想要连接的域地址。</p>

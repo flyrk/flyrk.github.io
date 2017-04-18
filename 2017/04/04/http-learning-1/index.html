@@ -88,25 +88,19 @@
 
 
 <meta name="description" content="什么是HTTP协议？
-HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
-为什么说HTTP是无状态的？
-无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入学习HTTP连接">
 <meta property="og:url" content="https://flyrk.github.io/2017/04/04/http-learning-1/index.html">
 <meta property="og:site_name" content="Flyrk's Blog">
 <meta property="og:description" content="什么是HTTP协议？
-HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
-为什么说HTTP是无状态的？
-无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
 <meta property="og:image" content="https://flyrk.github.io/images/ip-group.jpg">
-<meta property="og:updated_time" content="2017-04-10T15:08:21.794Z">
+<meta property="og:updated_time" content="2017-04-18T12:58:25.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入学习HTTP连接">
 <meta name="twitter:description" content="什么是HTTP协议？
-HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。
-为什么说HTTP是无状态的？
-无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。缺点就">
+HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
 <meta name="twitter:image" content="https://flyrk.github.io/images/ip-group.jpg">
 
 
@@ -391,7 +385,7 @@ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把
 
       
         <h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
-<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。</p>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br><a id="more"></a></p>
 <h3 id="为什么说HTTP是无状态的？"><a href="#为什么说HTTP是无状态的？" class="headerlink" title="为什么说HTTP是无状态的？"></a>为什么说HTTP是无状态的？</h3><hr>
 <p>无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。<br>缺点就是每一次请求都需要重新发送状态，也就是说服务器不会主动保存之前的状态。一般如果想让应用有状态，会在http协议中加上cookie、session等缓存机制。</p>
 <h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p>在HTTP客户端向服务器发送报文之前，需要用IP地址和端口号在客户端和服务器之间建立一条TCP/IP连接。一般浏览器通过HTTP获取服务器中某个HTML资源过程如下：</p>
