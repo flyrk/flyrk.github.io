@@ -190,6 +190,9 @@
         <div class="main-content-wrap">
             
             
+            <!-- copyright -->
+            
+            <!-- copyright -->
         </div>
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
@@ -226,6 +229,22 @@
             
             
             <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/guestbook/index.html">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/guestbook/index.html">
+                    <i class="fa fa-weixin"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/guestbook/index.html">
                     <i class="fa fa-weibo"></i>
                 </a>
@@ -239,20 +258,6 @@
                 </a>
             </li>
         
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/guestbook/index.html">
-                    <i class="fa fa-star"></i>
-                </a>
-            </li>
-        
-        
-            <li class="post-action">
-                <a class="post-action-btn btn btn--default" href="#disqus_thread">
-                    <i class="fa fa-comment-o"></i>
-                </a>
-            </li>
         
         <li class="post-action">
             
@@ -268,10 +273,7 @@
         
         
             
-                <div id="disqus_thread"></div>
-
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
+                
             
         
     </div>
@@ -457,22 +459,25 @@
 <!--SCRIPTS END-->
 
     
-        <script>
-             var disqus_config = function () {
-                 this.page.url = 'https://flyrk.github.io/guestbook/index.html';
-                 
-                    this.page.identifier = 'guestbook/index.html';
-                 
-             };
-            (function() {
-                var d = document, s = d.createElement('script');
-                var disqus_shortname = 'xmflyrk-com';
-                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        
+            <script type="text/javascript">
+                var owner = 'flyrk';
+                var repo = 'git@github.com:flyrk/blog-comment.git';
+                var cid = '083efbbbdb04471e0599';
+                var cs = 'fcb0584c1228acd4317926b1f427051bc6b9f03c';
+                var gitment = new Gitment({
+                    id: document.location.href, 
+                    owner: owner,
+                    repo: repo,
+                    oauth: {
+                        client_id: cid,
+                        client_secret: cs,
+                    }});
+                gitment.render('gitment-container');
+            </script>
+        
     
 
 
