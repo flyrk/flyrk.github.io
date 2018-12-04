@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>深入学习HTTP连接 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="什么是HTTP协议？ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="深入学习HTTP连接">
+<meta property="og:url" content="https://flyrk.github.io/2017/04/04/http-learning-1/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="什么是HTTP协议？ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imageip-group.jpg">
+<meta property="og:updated_time" content="2017-08-04T15:04:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入学习HTTP连接">
+<meta name="twitter:description" content="什么是HTTP协议？ HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。">
+<meta name="twitter:image" content="http://ou5mz529o.bkt.clouddn.com/imageip-group.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            深入学习HTTP连接
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-04-04T20:43:32+08:00">
+	
+		    4月 04, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/网络/">网络</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br><a id="more"></a></p>
+<h3 id="为什么说HTTP是无状态的？"><a href="#为什么说HTTP是无状态的？" class="headerlink" title="为什么说HTTP是无状态的？"></a>为什么说HTTP是无状态的？</h3><hr>
+<p>无状态的意思就是说每一次请求都与之前的请求无关，每一次请求包含的cookie、url、首部等有状态的数据都是一个完整的文档，不需要请求其上下文。<br>缺点就是每一次请求都需要重新发送状态，也就是说服务器不会主动保存之前的状态。一般如果想让应用有状态，会在http协议中加上cookie、session等缓存机制。</p>
+<h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p>在HTTP客户端向服务器发送报文之前，需要用IP地址和端口号在客户端和服务器之间建立一条TCP/IP连接。一般浏览器通过HTTP获取服务器中某个HTML资源过程如下：</p>
+<ul>
+<li>浏览器从URL中解析出服务器的主机名;</li>
+<li>浏览器通过DNS将主机名转换成服务器的IP地址;</li>
+<li>浏览器将端口号(默认80)从URL中解析出来;</li>
+<li>浏览器建立一条与Web服务器的TCP连接;</li>
+<li>浏览器向服务器发送一条HTTP请求报文;</li>
+<li>服务器向浏览器回送一条HTTP响应报文;</li>
+<li>关闭连接，浏览器渲染文档并显示;</li>
+</ul>
+<p>当然上述只是简单的描述，其中还有很多具体的步骤我们以后再说。</p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><hr>
+<p>我们知道，HTTP协议依赖TCP/IP来进行通信。那么什么是TCP/IP呢？TCP/IP是全球计算机网络都在使用的一种常用的分组交换网络分层协议集。</p>
+<h4 id="TCP数据传输"><a href="#TCP数据传输" class="headerlink" title="TCP数据传输"></a>TCP数据传输</h4><ul>
+<li>TCP为HTTP提供了一条可靠的比特传输管道。从TCP连接一端填入的字节会从另一端以原有的顺序正确地传送出来。</li>
+<li>传输的数据是通过称为IP分组的小数据块来发送的。每个IP分组都包括：<ul>
+<li>一个IP分组首部（通常为20字节）;</li>
+<li>一个TCP段首部（通常为20字节）;</li>
+<li>一个TCP数据块（0个或多个字节）;<br><img src="http://ou5mz529o.bkt.clouddn.com/imageip-group.jpg" alt="ip分组" title="IP分组"></li>
+</ul>
+</li>
+<li>TCP连接通过4个值来识别：&lt;源IP地址、源端口号、目的IP地址、目的端口号&gt;，这4个值一起唯一地定义了一条连接。<h3 id="TCP性能考虑"><a href="#TCP性能考虑" class="headerlink" title="TCP性能考虑"></a>TCP性能考虑</h3></li>
+<li><strong>HTTP事务的时延</strong>：一般影响HTTP事务的时延主要有以下几点原因：<ol>
+<li>解析主机名：首次解析主机名需要通过DNS解析系统将URI中的主机名转换成一个IP地址，这可能要花费不少时间;如果没有缓存DNS，则以后的每次访问都需要重新解析DNS，带来巨大时间消耗。</li>
+<li>发送TCP连接请求：每条新的TCP连接都会有连接建立时延，如果同时发送上百条连接，则所耗时间大大增加。</li>
+<li>连接建立完后，客户端会通过新建立的TCP管道发送HTTP请求报文，服务器接收到报文后会对请求进行处理。这其中传输报文、处理报文都需要花费时间;服务器处理完报文后回送响应报文也需要传输时间<br>总的来说，硬件速度、客户端和服务器的负载量、客户端与服务器之间的距离、报文的大小等会对时延产生巨大影响。</li>
+</ol>
+</li>
+<li><strong>TCP握手时延</strong>：TCP连接需要经过三次握手，一般步骤如下：<ol>
+<li>请求新的TCP连接，客户端向服务器发送一个TCP分组（通常40～60字节）。分组中设置了一个特殊的SYN标记，说明是连接请求。</li>
+<li>服务器接受连接，对连接参数进行计算，向客户端回送一个TCP分组，分组中的SYN和ACK标记都被置位，告诉客户端请求已接受。</li>
+<li>客户端向服务器回送一条确认信息的TCP分组，包含ACK标记，告诉服务器连接已成功建立。（现代的TCP栈允许客户端在这个确认分组中发送数据）</li>
+</ol>
+</li>
+<li><strong>TCP延迟确认</strong>：TCP有自己的确认机制来确保数据成功传输。每个TCP段都有一个序列号和数据完整性校验和。一般确认报文很小，所以TCP允许将确认报文和输出的数据分组组合在一起传输，这里就引入了一个“延迟确认”算法。“延迟确认”算法会在一个特定的窗口时间（通常100～200ms）内将输出确认存放在缓存区，以寻找能携带它的输出数据分组，如果在特定时间内没有输出数据分组，就将确认信息放在单独的分组进行传输。但这样一般会引入比较大的时延，所以不一定完全要用延迟算法。</li>
+<li><strong>TCP慢启动</strong>：为了防止网络负载过大和阻塞，TCP连接会采取慢启动，也就是说一开始限制连接的最大速度，随着数据的传输成功，慢慢增大传输速度。例如建立一个新连接，先发送一个分组，等确认成功后，才可以发送两个分组，等都被确认后，就可以发送四个分组，以此类推。。。<br>由于这种特性，新连接的传输速度会比已经交换过一定量数据的、“已调谐”连接慢一些。</li>
+<li><strong>Nagle算法问题</strong>：由于TCP允许将任意尺寸数据放入TCP栈中传输，所以如果TCP发送了大量包含少量数据的分组，则网络性能就会很低，浪费很多流量。Nagle算法就是用来解决此类问题。该算法试图在发送一个分组之前，将大量TCP数据绑定在一起来提高网络效率。<br>Nagle算法希望发送全尺寸（LAN上最大尺寸的分组大约1500字节，Internet上是几百字节）的段。如果其他分组任然在传输过程中，就将那部分数据缓存起来，只有当挂起分组被确认，或者缓存中积累了足够发送一个全尺寸的分组后才将缓存的数据传输出去。这样就会带来性能问题，如果HTTP报文很小，一直达不到全尺寸，就会一直在等待那些永远不会到来的数据而引起时延;而且Nagle算法会阻止数据传输直到有确认分组抵达，但确认分组自身又有延迟。<br>所以HTTP应用程序可以通过设置参数TCP_NODELAY来禁用Nagle算法，但是这样要确保会向TCP写入大块数据，而避免传输数量多的小分组。</li>
+<li><strong>TIME_WAIT、端口耗尽</strong>：TCP关闭某个连接时，会在内存中维护一个小的控制块，用来记录最近所关闭连接的IP地址和端口号，通常维持2MSL（2分钟）左右。这样可以防止在两分钟内创建、关闭并重新创建两个具有相同IP地址和端口号的连接。但这样就会限制可用端口号的数量，降低连接率。要确保不会遇到TIME_WAIT端口耗尽问题，可以增加客户端负载生成机器的数量，或者确保客户端和服务器在循环使用几个虚拟IP地址以增加更多的连接组合。</li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/HTTP/">HTTP</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/06/Closures-learning/" data-tooltip="深刻理解闭包">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/03/achieve-binary-search-tree/" data-tooltip="二叉搜索树JavaScript实现">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/04/http-learning-1/&amp;title=深入学习HTTP连接">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/06/Closures-learning/" data-tooltip="深刻理解闭包">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/03/achieve-binary-search-tree/" data-tooltip="二叉搜索树JavaScript实现">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/04/http-learning-1/&amp;title=深入学习HTTP连接">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/04/http-learning-1/&amp;title=深入学习HTTP连接">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/04/http-learning-1/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/04/04/http-learning-1/';
+                 
+                    this.page.identifier = '2017/04/04/http-learning-1/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

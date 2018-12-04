@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>深刻理解闭包 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
+<meta name="keywords" content="闭包">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="深刻理解闭包">
+<meta property="og:url" content="https://flyrk.github.io/2017/04/06/Closures-learning/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-08T12:59:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深刻理解闭包">
+<meta name="twitter:description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            深刻理解闭包
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-04-06T20:45:59+08:00">
+	
+		    4月 06, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端必会/">前端必会</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。<a id="more"></a>
+<h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3></li>
+</ul>
+<hr>
+<p>我们先来看个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> f = func();</span><br><span class="line">f();    <span class="comment">// 1</span></span><br><span class="line">f();    <span class="comment">// 2</span></span><br><span class="line">f();    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
+<p>当退出函数后，变量a并没有消失，因为调用var f = func();时，f返回了一个匿名函数的引用，而它可以访问到func()被调用时执行的环境，局部变量a则处在这个环境中，所以a可以被外界访问。这里就产生了所谓的闭包，局部变量a的生命周期被延长了。<br>我们知道，当func()执行后，通常会期待func()内部作用域全部被销毁，因为JS引擎有垃圾回收器用来释放不再使用的内存空间。当某个函数执行完后，一般我们都认为它已经不再使用了，自然会考虑对其回收。而闭包的作用就是让内部作用域依然存在，f()就是对该作用域的引用，而这个引用就叫做闭包。</p>
+<h3 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h3><hr>
+<ul>
+<li>封装变量：把一些不需要暴露在全局的变量封装成“私有变量”。</li>
+<li>延长局部变量寿命：使其不会在退出函数时就立即销毁。</li>
+<li>将函数在定义时的词法作用域以外的地方调用使其可以继续访问定义时的词法作用域。</li>
+</ul>
+<h3 id="闭包与面向对象设计"><a href="#闭包与面向对象设计" class="headerlink" title="闭包与面向对象设计"></a>闭包与面向对象设计</h3><hr>
+<ul>
+<li>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。</li>
+<li><p>闭包实现命令模式:命令模式的意图是把请求封装为对象，从而分离请求的发起者和请求的接收者之间的耦合关系。用闭包实现命令模式如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createCommand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> excute = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiver.open();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> undo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiver.close();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        excute: excute,</span><br><span class="line">        undo: undo</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>闭包与内存管理:使用闭包的一部分原因是我们选择主动把一些变量封装在闭包中，因为可能在以后还需要使用这些变量，把这些变量放在闭包中和放在全局作用域中对内存方面的影响是一致的。如果在将来需要回收这些变量，可以手动把变量设置为null。</p>
+</li>
+</ul>
+<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><hr>
+<p>在定时器、事件监听器、Ajax请求、跨窗口通信、Web Workders或者任何其他的异步（或者同步）任务中，只要使用了回调函数，实际上就是在使用闭包。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wait</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( message );</span><br><span class="line">    &#125;, <span class="number">1000</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">wait(<span class="string">"This is a closure!"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>在这里我们将一个内部函数timer传递给setTimeou，timer具有涵盖wait(…)作用域的闭包，因此包含对变量message的引用。wait(…)执行1000毫秒后，它的内部作用域并不会消失，timer依然保有wait(…)作用域的闭包。</p>
+<h3 id="经典闭包问题"><a href="#经典闭包问题" class="headerlink" title="经典闭包问题"></a>经典闭包问题</h3><hr>
+<p>考虑如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们期待是输出0～5，每隔一秒输出一个数字。但实际上这段代码运行结果是每隔一秒输出一个5。想想就知道，setTimeout设置的延迟函数相当于异步调用，在循环后才执行，而循环结束后i为5,所以输出也就为5。那么问题出在哪呢？<br>我们以为循环时每个迭代都会“捕获”一个i的副本，但是根据作用域工作原理，尽管循环中的五个函数是在不同的迭代定义的，但它们共享一个全局作用域，因此只有一个全局变量i。<br>怎么解决？在循环的每个迭代创建一个闭包作用域。这里就用到IIFE函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(i);</span><br><span class="line">        &#125;, i * <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样问题就解决了，我们在每个循环创造一个IIFE匿名函数，并传入全局变量i，使得每个作用域都收到不同的局部变量i并用闭包保存下来，最后输出时就能正确输出i值了。<br>其实我们的解决方法本质上就是每次迭代都需要一个块作用域。在ES6里用let就能很好解决这个问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为let声明在每次迭代都会声明i，随后的每个迭代都会使用上一个迭代结束时的值来初始化这个变量。</p>
+<h3 id="闭包在模块中的应用"><a href="#闭包在模块中的应用" class="headerlink" title="闭包在模块中的应用"></a>闭包在模块中的应用</h3><hr>
+<p>考虑以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CoolModule</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sth = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> another = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sth);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnother</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(another.join(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSth: doSth,</span><br><span class="line">        doAnother: doAnother</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = CoolModule();</span><br><span class="line">foo.doSth();</span><br><span class="line">foo.doAnother();</span><br></pre></td></tr></table></figure></p>
+<p>这个模式在js中被称为模块。CoolModule()是一个函数，我们必须通过调用它来创建一个模块实例。该函数返回的是一个对象，这个对象包含了对内部函数的引用，也就是一个闭包，而内部数据变量仍然是隐藏且私有状态。可以说这个对象的返回值就是模块的公共API。每次调用CoolModule()函数相当于创建了一个新的模块实例，然后可以用这个实例调用其内部函数API。<br>简单地说，模块模式需要具备两个必要条件：</p>
+<pre><code>1. 必须有外部的封闭函数，该函数必须至少被调用一次（每次调用创建一个新的模块实例）
+2. 封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态
+</code></pre><p>当只需要一个实例时，我们可以用如下方法实现单例模式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="title">CoolModule</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sth = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> another = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sth);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnother</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(another.join(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSth: doSth,</span><br><span class="line">        doAnother: doAnother</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">foo.doSth();</span><br><span class="line">foo.doAnother();</span><br></pre></td></tr></table></figure></p>
+<p>我们通过一个IIFE立即执行模块函数并返回赋值给foo。通过在模块实例的内部保留对公共API对象的内部引用，可以从内部对模块实例进行修改，包括添加或删除方法和属性，以及修改它们的值。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/闭包/">闭包</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/09/leetcode-week1/" data-tooltip="leetcode刷题ing">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/04/http-learning-1/" data-tooltip="深入学习HTTP连接">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/09/leetcode-week1/" data-tooltip="leetcode刷题ing">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/04/http-learning-1/" data-tooltip="深入学习HTTP连接">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/04/06/Closures-learning/';
+                 
+                    this.page.identifier = '2017/04/06/Closures-learning/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

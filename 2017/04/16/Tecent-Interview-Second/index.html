@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>2017腾讯前端实习生二面+HR面总结 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="二面（4.15） 很幸运过了一面，二面之前异常紧张，中午又吃错东西了。。。导致下午开始胃疼。火急火燎地在规定的15:20之前赶到了面试地点，签了到后就在那等。没想到等了一个小时。。期间的心情非常难熬。">
+<meta name="keywords" content="实习面试">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="2017腾讯前端实习生二面+HR面总结">
+<meta property="og:url" content="https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="二面（4.15） 很幸运过了一面，二面之前异常紧张，中午又吃错东西了。。。导致下午开始胃疼。火急火燎地在规定的15:20之前赶到了面试地点，签了到后就在那等。没想到等了一个小时。。期间的心情非常难熬。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-04-18T12:57:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017腾讯前端实习生二面+HR面总结">
+<meta name="twitter:description" content="二面（4.15） 很幸运过了一面，二面之前异常紧张，中午又吃错东西了。。。导致下午开始胃疼。火急火燎地在规定的15:20之前赶到了面试地点，签了到后就在那等。没想到等了一个小时。。期间的心情非常难熬。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            2017腾讯前端实习生二面+HR面总结
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-04-16T19:16:23+08:00">
+	
+		    4月 16, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/面经/">面经</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="二面（4-15）"><a href="#二面（4-15）" class="headerlink" title="二面（4.15）"></a>二面（4.15）</h2><blockquote>
+<p>很幸运过了一面，二面之前异常紧张，中午又吃错东西了。。。导致下午开始胃疼。火急火燎地在规定的15:20之前赶到了面试地点，签了到后就在那等。没想到等了一个小时。。期间的心情非常难熬。<br><a id="more"></a><br>终于到我了，上楼去面试。先敲门，面试官说请进后走了进去。发现是一个略胖的中年大哥，之前就听说过二面一般是总监面，会比较严格。一进去果然领略到了。面试官先看了看他手中的简历，可能是一面的面试官给他的我的介绍。然后让我介绍一下自己的学习过程和做过的项目。于是我就开始滔滔不绝地讲起来，期间面试官不时地点头让我觉得是赞许，信心也增加了不少，越说越来劲~~<br>介绍完项目后，面试官直接问我你搞过ACM是吧，我说是的。于是他直接让我做两道算法题：一道是二叉排序树的插入算法，这个比较简单，之前也写过很多次了，但谨慎起见，我还是认真地在纸上手写代码，检查无误后才给面试官看。面试官看完后让我讲讲思路，我又给他讲了，估计讲的还不错。他又给了我一个算法题：找出二叉树中两个节点间的最大距离。我愣着头写了十分钟左右，写完后给面试官看，他提示我不一定经过根节点，我没考虑到这层，他让我直接讲怎么改，这里我突然有点慌，因为之前没考虑到这种情况，简单的说了一下，面试官说好吧，你的思路大致没问题，就是有些情况没考虑到，稍微完善一下就好了。我感觉他的语气还算和蔼，心里放松了一大半。面试官突然说你的算法能力在前端里算不错的了，听到这句我心里高兴了不少，看来算法没白学。他让我介绍一下当初是怎么想到学算法的，我简单的说了一下。接着面试官开始问我一些基础知识：</p>
+<ol>
+<li>了解虚函数吗？我想这不是C++的内容吗。。。早忘了~~于是就坦白地说自己不怎么记得了，面试官说没事知道多少说多少，我也就随便说了一些，估计也没说对</li>
+<li>操作系统中的堆和栈是怎么分配的，我先解释了一下什么是堆和栈，然后面试官说具体是怎么分配变量之类的。我回答变量一般是存储到栈里面，而函数、对象、指针等引用类型则是存到堆里面。</li>
+<li>递归和循环哪个性能更好？这个很多书上都说过，就直接回答了。</li>
+<li>了解NodeJS吗？它的优势是什么？我说实话，了解不多，但还是扯了一些，并说NodeJS是用JavaScript写的，与前端所用的语言一样，这样利于前后端通信和接口调用之类的。</li>
+<li>了解TCP有什么延迟机制吗？我就说了TCP的慢启动。<br>问完这些问题，面试官又问了我去实习能实习多久，我回答了之后就说今天的面试结束了，明天上午出结果，让我回去等。我连说谢谢，然后离开了。<br>回去以后心情还是不错的。感觉这次面试是我几次面试以来发挥最好的一次，基本上问到的内容都回答上来了。但很奇怪的是二面没有想象中的什么压力面，问的东西和前端的内容关系也不是很大，问的都是算法、操作系统等内容，还好我之前也了解过这方面。看来腾讯对前端的计算机基础要求还是挺高的。总体感觉还是不错的，就是想吐槽一下面试官全程毫无表情让我有点难受。。。<br>希望自己能进入HR面吧！焦急等待中。。。</li>
+</ol>
+</blockquote>
+<h2 id="HR面（4-16）"><a href="#HR面（4-16）" class="headerlink" title="HR面（4.16）"></a>HR面（4.16）</h2><blockquote>
+<p>今天上午收到通知，下午14：30去面试，让我兴奋不已，二面好歹是过了。听说HR面不会刷人，但我还是不能掉以轻心，随便应付了事，毕竟都到这了，心里还是有些小期待的。但是自己之前没有HR面的经验，也不知道问什么。。。在网上看了几篇面经就匆匆赶去面试了。<br>去到面试休息区，人比之前又少了一半，我大概估计了一下，不到二十人，感觉自己真是幸运的！签到后等了快半个小时终于轮到我了。<br>到了房间后敲门进去，发现是一个年轻小哥坐在那（说好的HR小姐姐呢～～），跟预期的不一样，不过也只好硬着头皮上了。上去先递简历，面试官看了看，开始问我问题：</p>
+<pre><code>1. 你是哪里人？
+2. 你最想去哪个城市工作？回答当然是深圳。
+3. 你是怎么学习前端的？
+4. 你在校的成绩怎么样？排名多少？我只能老实告诉中等水平。。。又问我你觉得为什么成绩不是特别好呢？这个就根据自己的想法回答了。
+5. 你认为前端需要掌握哪些技能？回答了硬技能和软技能之类的。
+6. 你自己或者别人对你的形容词有哪些？这个我也没怎么准备，就边想边说了，扯的内容也比较多，能想到的都说了。
+7. 你也看到了一面那么多人，到最后只有这么少人，你认为是什么让你能够脱颖而出走到这里的？这个问题很尖锐，我也没敢去怎么吹嘘自己，就实话实说，实力加运气吧。
+8. 你还有拿到其他offer吗？老实说这让我有点尴尬，我也就实话实说还没有，并如实地告诉还投了哪些公司，面试官着重问了有没有投阿里。。。
+9. 你有想过考研吗？为什么？这个问题我自己也想过很多，所以就脱口而出了。
+10. 实习时间可以从什么时候开始？
+</code></pre><p>问得差不多了，面试官让我可以问他几个问题，我开始还没准备好，就随便问了几个：我面的是哪个部门？（面试官表示很惊讶，面了这么久还不知道自己面的是哪个事业群，我可能是第一人。。。告诉了我是SNG）腾讯的实习生工作环境是怎样的？住宿方面如何？作为过来人对我们新人有什么建议？问了这些，我又作死问了一下对我今天面试的评价如何？问完就感觉不该问，面试官还是友好的告诉了我，说我太实诚了，告诉了他很多东西。。。我也不知道这是夸奖还是什么，只能跟着笑了笑。。。最后问多久能知道结果，HR告诉我大概两周之内。HR面就这么结束了。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过了三天的面试，感觉整个人都脱了一层皮，每天都是不停奔波，总算是结束了，但收获也很多。首先技术面让我知道了自己还有哪些不足，以后的发展方向也更加明确，当然也给了自己信心，至少自己还是有一定实力的～～HR面则就相当于聊天一样，我也没想太多，有什么说什么了。。。我不知道这样是否好，但我也不会那些所谓的面试套路。不管怎样，腾讯的面试结束了，从笔试到面试，经历了最开始的不在意，到后来焦急地准备面试，到后来慢慢心态放松，以平常心去面对。不管结果怎样，这次面试是一次很好的经历。之后的事情就是最难熬的等结果了，我也尽量不去想太多吧，得之我幸，失之我命！</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/实习面试/">实习面试</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/16/Internship-interviews/" data-tooltip="CVTE、阿里一面、去哪儿一面总结">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/13/Tecent-Interview-one/" data-tooltip="2017腾讯前端实习生一面总结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/&amp;title=2017腾讯前端实习生二面+HR面总结">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/16/Internship-interviews/" data-tooltip="CVTE、阿里一面、去哪儿一面总结">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/13/Tecent-Interview-one/" data-tooltip="2017腾讯前端实习生一面总结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/&amp;title=2017腾讯前端实习生二面+HR面总结">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/&amp;title=2017腾讯前端实习生二面+HR面总结">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/04/16/Tecent-Interview-Second/';
+                 
+                    this.page.identifier = '2017/04/16/Tecent-Interview-Second/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

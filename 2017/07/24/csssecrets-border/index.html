@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>CSS边框的应用 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="CSS中盒模型里重要的一个部分就是border，常见的border方法就是设置一重边框：border: 1px solid #494949，但如果我们想实现其他效果，该怎么用呢？">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="CSS边框的应用">
+<meta property="og:url" content="https://flyrk.github.io/2017/07/24/csssecrets-border/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="CSS中盒模型里重要的一个部分就是border，常见的border方法就是设置一重边框：border: 1px solid #494949，但如果我们想实现其他效果，该怎么用呢？">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow.png">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow2.png">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow2.png">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imageoutline-radius.png">
+<meta property="og:image" content="http://ou5mz529o.bkt.clouddn.com/imageborder-inner-radius.png">
+<meta property="og:updated_time" content="2017-08-08T13:01:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS边框的应用">
+<meta name="twitter:description" content="CSS中盒模型里重要的一个部分就是border，常见的border方法就是设置一重边框：border: 1px solid #494949，但如果我们想实现其他效果，该怎么用呢？">
+<meta name="twitter:image" content="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            CSS边框的应用
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-07-24T15:25:57+08:00">
+	
+		    7月 24, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/设计之美/">设计之美</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>CSS中盒模型里重要的一个部分就是<code>border</code>，常见的<code>border</code>方法就是设置一重边框：<code>border: 1px solid #494949</code>，但如果我们想实现其他效果，该怎么用呢？<br><a id="more"></a></p>
+<h1 id="CSS实现多重边框"><a href="#CSS实现多重边框" class="headerlink" title="CSS实现多重边框"></a>CSS实现多重边框</h1><h2 id="一般的边框设置border只能达到一重边框的效果，如果想达到多重边框，一般要使用各种hack，比如用多个元素来模拟边框。那么有没有更好的办法呢？有。以下方法也能实现多重边框，并且不需要添加多余元素来污染dom结构。"><a href="#一般的边框设置border只能达到一重边框的效果，如果想达到多重边框，一般要使用各种hack，比如用多个元素来模拟边框。那么有没有更好的办法呢？有。以下方法也能实现多重边框，并且不需要添加多余元素来污染dom结构。" class="headerlink" title="一般的边框设置border只能达到一重边框的效果，如果想达到多重边框，一般要使用各种hack，比如用多个元素来模拟边框。那么有没有更好的办法呢？有。以下方法也能实现多重边框，并且不需要添加多余元素来污染dom结构。"></a>一般的边框设置border只能达到一重边框的效果，如果想达到多重边框，一般要使用各种hack，比如用多个元素来模拟边框。那么有没有更好的办法呢？有。以下方法也能实现多重边框，并且不需要添加多余元素来污染dom结构。</h2><h2 id="box-shadow方案"><a href="#box-shadow方案" class="headerlink" title="box-shadow方案"></a>box-shadow方案</h2><p>  我们知道box-shadow一般用来生成投影，MDN的box-shadow是这样定义的：</p>
+<blockquote>
+<p>Specify a single box-shadow using:</p>
+<ul>
+<li>Two, three, or four <length> values.</length></li>
+<li>If only two values are given, they are interpreted as <offset-x><offset-y> values.</offset-y></offset-x></li>
+<li>If a third value is given, it is interpreted as a <blur-radius>.</blur-radius></li>
+<li>If a fourth value is given, it is interpreted as a <spread-radius>.</spread-radius></li>
+<li>Optionally, the inset keyword.</li>
+<li>Optionally, a <color> value.</color></li>
+</ul>
+</blockquote>
+<p>  我们注意到，一般前两个值代表x和y方向的偏移，第三个值代表模糊值，而第四个参数代表扩张半径，通过指定该值为正或负可以让投影面积加大或减小。于是我们可以实现这样的效果：<br>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">lightblue</span>;</span><br><span class="line"><span class="selector-tag">box-shadow</span>: 0 0 0 10<span class="selector-tag">px</span> <span class="selector-id">#533</span>;</span><br></pre></td></tr></table></figure></p>
+<p>  <img src="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow.png" alt="one-shadow"></p>
+<p>  当然这和border的效果没什么区别，但box-shadow的好处在于，它支持逗号分隔语法，我们可以创建任意数量的投影。于是我们可以实现多重投影：<br>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">lightblue</span>;</span><br><span class="line"><span class="selector-tag">box-shadow</span>: 0 0 0 10<span class="selector-tag">px</span> <span class="selector-id">#533</span>,</span><br><span class="line">                      0 0 0 15<span class="selector-tag">px</span> <span class="selector-id">#2f4</span>,</span><br><span class="line">                      0 2<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 15<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(0, 0, 0, <span class="selector-class">.6</span>);</span><br></pre></td></tr></table></figure></p>
+<p>  <img src="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow2.png" alt="double-shadow"></p>
+<p>  注意的是，box-shadow是层层叠加的，第一层投影位于最顶层，依此类推。所以我们如果想在之前的10px外圈上加一道5px的外框，则需要指定扩张半径的值为15px。</p>
+<p>  需要注意的是：</p>
+<blockquote>
+<ul>
+<li>投影的行为和边框不完全一致，因为它不会影响布局，也不会受到box-sizing的影响。</li>
+<li>box-shadow创建出的边框不会响应鼠标事件。如果一定要响应的话，应该给box-shadow加上inset关键字，来使投影绘制在元素的内圈。</li>
+</ul>
+</blockquote>
+<h2 id="outline方案"><a href="#outline方案" class="headerlink" title="outline方案"></a>outline方案</h2><p>  某些情况下可能只需要两层边框，这个时候可以用一层border再加上outline实现，好处是outline可以实现虚线边框，而box-shadow只能实现实线边框。<br>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">lightblue</span>;</span><br><span class="line"><span class="selector-tag">border</span>: 10<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#533</span>;</span><br><span class="line"><span class="selector-tag">outline</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#2f4</span>;</span><br></pre></td></tr></table></figure></p>
+<p>  <img src="http://ou5mz529o.bkt.clouddn.com/imagebox-shadow2.png" alt="double-shadow"></p>
+<p>需要注意的是：</p>
+<blockquote>
+<p>它只适用于双层边框，而且不一定会贴合border-radius属性产生的圆角。</p>
+</blockquote>
+<p><img src="http://ou5mz529o.bkt.clouddn.com/imageoutline-radius.png" alt="outline-radius"></p>
+<hr>
+<h1 id="边框内圆角实现"><a href="#边框内圆角实现" class="headerlink" title="边框内圆角实现"></a>边框内圆角实现</h1><p>有时候我们需要实现一个容器，只在内部有圆角，而边框外侧四个角则是直角。要实现这个效果，最容易想到的方法就是使用两个元素。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'container'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>This is a box<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#655</span>;</span><br><span class="line">  <span class="attribute">padding</span>: .<span class="number">6em</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &gt; <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: tan;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: .<span class="number">8em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现效果：<br><img src="http://ou5mz529o.bkt.clouddn.com/imageborder-inner-radius.png" alt="border-inner-radius"></p>
+<p>但使用两个元素总是有点不好，能不能只使用一个元素呢？答案是可以。我们可以利用box-shadow和outline达到同样的效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: tan;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: .<span class="number">8em</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> .<span class="number">5em</span> <span class="number">#655</span></span><br><span class="line">  outline: .<span class="number">6em</span> solid <span class="number">#655</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现的效果和之前一样。<br>因为box-shadow会跟着元素的圆角走，而outline不会，所以利用两者叠加，box-shadow正好把border和outline之间的空隙填补了。</p>
+<p>注意的是，box-shadow的扩张值不一定等于outline的宽度，一般使用稍小一点的值。根据学过的勾股定理，最小的扩张值一般要大于<code>(&amp;radic;2-1)*border-radius</code>，为了方便，一般取border-radius的一半。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS/">CSS</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/27/css-margin-collapse/" data-tooltip="CSS外边距合并效应">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/10/Summary/" data-tooltip="最近一段时间的总结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/07/24/csssecrets-border/&amp;title=CSS边框的应用">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/27/css-margin-collapse/" data-tooltip="CSS外边距合并效应">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/10/Summary/" data-tooltip="最近一段时间的总结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/07/24/csssecrets-border/&amp;title=CSS边框的应用">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/07/24/csssecrets-border/&amp;title=CSS边框的应用">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/07/24/csssecrets-border/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/07/24/csssecrets-border/';
+                 
+                    this.page.identifier = '2017/07/24/csssecrets-border/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

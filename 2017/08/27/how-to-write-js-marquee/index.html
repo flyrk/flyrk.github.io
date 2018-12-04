@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>用原生JS写轮播图 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="我们经常可以在网页上看到轮播图的效果，这是一个很常见的应用，但是，要想比较完美地实现这个功能，还是需要花点时间的。">
+<meta name="keywords" content="JavaScript,Animation">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="用原生JS写轮播图">
+<meta property="og:url" content="https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="我们经常可以在网页上看到轮播图的效果，这是一个很常见的应用，但是，要想比较完美地实现这个功能，还是需要花点时间的。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-27T10:49:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用原生JS写轮播图">
+<meta name="twitter:description" content="我们经常可以在网页上看到轮播图的效果，这是一个很常见的应用，但是，要想比较完美地实现这个功能，还是需要花点时间的。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            用原生JS写轮播图
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-27T16:53:36+08:00">
+	
+		    8月 27, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/实用技巧/">实用技巧</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>我们经常可以在网页上看到轮播图的效果，这是一个很常见的应用，但是，要想比较完美地实现这个功能，还是需要花点时间的。<br><a id="more"></a></p>
+<h1 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h1><p>首先我们来看看要实现这么一个轮播图需要哪些功能，这里我把我想到的都列出来了。</p>
+<ol>
+<li>页面加载后轮播图自动开始播放，每张图片停几秒钟。</li>
+<li>图片与图片之间实现平滑过渡动画效果，不显突兀。</li>
+<li>鼠标悬停到当前图片时轮播动画停止，鼠标离开图片后继续开始轮播。</li>
+<li>图片上有左右翻页功能按钮，点击左边按钮图片往左滑动，点击右边按钮图片右滑。</li>
+<li>图片下端有显示图片个数的小圆点，当前图片是第几个，则第几个小圆点“点亮”。</li>
+<li>离开当前页面后轮播动画停止，回到当前页面后轮播动画继续。</li>
+</ol>
+<p>我能想到的要实现的功能就这么多，接下来就一步步开始实现。</p>
+<h1 id="HTMl结构"><a href="#HTMl结构" class="headerlink" title="HTMl结构"></a>HTMl结构</h1><p>先不管JS、CSS部分，我们先把整体结构定下来。这里直接贴上主体部分代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loop-container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat5.jpg"</span> <span class="attr">alt</span>=<span class="string">"5"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat1.jpg"</span> <span class="attr">alt</span>=<span class="string">"1"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat2.jpg"</span> <span class="attr">alt</span>=<span class="string">"2"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat3.jpg"</span> <span class="attr">alt</span>=<span class="string">"3"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat4.jpg"</span> <span class="attr">alt</span>=<span class="string">"4"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat5.jpg"</span> <span class="attr">alt</span>=<span class="string">"5"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./assets/cat1.jpg"</span> <span class="attr">alt</span>=<span class="string">"5"</span> <span class="attr">class</span>=<span class="string">"loop-image"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"buttons"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"on"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>4<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>5<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"arrow arrow-left"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pt"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"pt-inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"arrow arrow-right"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pt"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"pt-inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里要强调的一点就是，虽然最后显示只有5张图片，但我插入了7个<code>img</code>标签，其中第一个和最后一张图一样，最后一个和第一个图一样。为什么要这么做呢？是因为要实现平滑的动画过渡效果，后面JS部分会提到。</p>
+<h1 id="CSS样式"><a href="#CSS样式" class="headerlink" title="CSS样式"></a>CSS样式</h1><p>接下来就是CSS设置：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.wrap</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%, -50%);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> <span class="selector-class">.loop-container</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">600px</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">700%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">animation</span>: left .<span class="number">6s</span> ease-out;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span><span class="selector-pseudo">:hover</span> &gt; <span class="selector-class">.arrow</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.loop-container</span> <span class="selector-class">.loop-image</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">500px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我没有把全部的CSS代码贴出来，完整的代码我会在最后给出。</p>
+<p>我只说几个要注意的地方：</p>
+<ul>
+<li>首先外部容器要设置<code>overflow:hidden</code>，这样才能把多余的图片遮住；</li>
+<li>其次由于img默认是inline元素，显示出来的特性是inline-block，所以img之间会有4px的空隙，即使设置了margin和padding为0也不能消除。为此我困惑了很久。。。后来上网找资料才发现解决方案。一般有几种解决方案，这里我用的是设置父元素的font-size为0，然后img的font-size设不设置根据需要，这样就可以消除空隙。更详尽的解决方案可以参考张大神的<a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">博客</a></li>
+</ul>
+<p>其他css设置就根据样式慢慢调整了。</p>
+<h1 id="JS部分"><a href="#JS部分" class="headerlink" title="JS部分"></a>JS部分</h1><p>接下来就是重头戏，JS的实现了。我们一步一步来看。</p>
+<p>我先创建了一个整体的“类”，里面有一些所需要用到的方法和属性：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Marquee</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.timer = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">this</span>.index = <span class="number">0</span>; <span class="comment">// 保存当前是第几张图</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Marquee.prototype.animate = <span class="function"><span class="keyword">function</span> (<span class="params">aimLeft</span>) </span>&#123;  <span class="comment">// 具体的动画实现</span></span><br><span class="line">  <span class="keyword">var</span> curLeft = <span class="built_in">parseInt</span>(loopContainer.style.left) || <span class="number">-600</span>, <span class="comment">// 获取当前图片的left值</span></span><br><span class="line">      speed = (aimLeft - curLeft) / <span class="number">20</span>, <span class="comment">// 每次left移动的距离</span></span><br><span class="line">      delay = <span class="number">20</span>,</span><br><span class="line">      self = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">var</span> time = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  <span class="comment">// 利用循环定时实现平滑移动的动画效果</span></span><br><span class="line">    curLeft += speed;</span><br><span class="line">    loopContainer.style.left = curLeft + <span class="string">'px'</span>;</span><br><span class="line">    <span class="keyword">if</span> (curLeft === aimLeft) &#123;  <span class="comment">// 如果移动到了下一张图片的位置，则此次移动动画结束</span></span><br><span class="line">      clearInterval(time);</span><br><span class="line">      <span class="keyword">if</span> (aimLeft &lt;= <span class="number">-3600</span>) &#123;  <span class="comment">// 特殊设置，如果是从最后一张图到第一张图，中间加一张图片实现动画过渡，当到达最后一张图后，立即设置left为第二个img的left。 </span></span><br><span class="line">        loopContainer.style.left = <span class="string">'-600px'</span>;  <span class="comment">// 第一张图实际的left为-600px，因为html里left为0的位置是最后一张图</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (aimLeft &gt;= <span class="number">0</span>) &#123; <span class="comment">// 同理，当从第一张图过渡到最后一张图，先实现动画效果，当left为实际第一张图的位置0时，设置left为倒数第二个img的位置。</span></span><br><span class="line">        loopContainer.style.left = <span class="string">'-3000px'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      self.showCurrentDot();  <span class="comment">// 动画结束后再改变小圆点的外观</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, delay);</span><br><span class="line">&#125;;</span><br><span class="line">Marquee.prototype.showCurrentDot = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  <span class="comment">// 设置代表当前图片位置的小圆点class</span></span><br><span class="line">  <span class="keyword">var</span> dots = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'span'</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = dots.length; i &lt; len; i++) &#123;</span><br><span class="line">    dots[i].className = <span class="string">''</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  dots[<span class="keyword">this</span>.index].className = <span class="string">'on'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Marquee.prototype.changePhoto = <span class="function"><span class="keyword">function</span> (<span class="params">offset</span>) </span>&#123; <span class="comment">// 自动改变图片的函数</span></span><br><span class="line">  <span class="keyword">var</span> left = loopContainer.style.left,</span><br><span class="line">    newleft = left ? <span class="built_in">parseInt</span>(left) + offset : offset - <span class="number">600</span>;  <span class="comment">// 新的位置</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">this</span>.index = offset &gt; <span class="number">0</span> ? <span class="keyword">this</span>.index - <span class="number">1</span> : <span class="keyword">this</span>.index + <span class="number">1</span>;  <span class="comment">// 判断向左还是向右滑动</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.index &gt; <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.index = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.index &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.index = <span class="number">4</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// console.log(left);</span></span><br><span class="line">  <span class="comment">// console.log(newleft);</span></span><br><span class="line">  <span class="comment">// console.log('------');</span></span><br><span class="line">  <span class="keyword">this</span>.animate(newleft);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Marquee.prototype.gotoPhoto = <span class="function"><span class="keyword">function</span> (<span class="params">count</span>) </span>&#123;  <span class="comment">// 跳转到第count个图片的函数</span></span><br><span class="line">  <span class="keyword">var</span> newleft = count * <span class="number">-600</span>;</span><br><span class="line">  <span class="comment">// console.log(newleft);</span></span><br><span class="line">  <span class="keyword">this</span>.index = count - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">this</span>.animate(newleft);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maq = <span class="keyword">new</span> Marquee();</span><br></pre></td></tr></table></figure></p>
+<h2 id="自动播放图片"><a href="#自动播放图片" class="headerlink" title="自动播放图片"></a>自动播放图片</h2><p>轮播图，顾名思义就是轮流播放图片，所以首先要实现的功能就是自动轮流循环播放图片。 有了之前的类，我们要做的就是当页面加载完毕后开始循环播放：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prevBtn = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'arrow-left'</span>)[<span class="number">0</span>],</span><br><span class="line">      nextBtn = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'arrow-right'</span>)[<span class="number">0</span>],</span><br><span class="line">      loopContainer = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'loop-container'</span>)[<span class="number">0</span>],</span><br><span class="line">      btns = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'buttons'</span>)[<span class="number">0</span>],</span><br><span class="line">      wrap = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'wrap'</span>)[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> stopFlag = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">startInterval</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// 开始循环动画</span></span><br><span class="line">    maq.timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// console.log(stopFlag);</span></span><br><span class="line">      <span class="keyword">if</span> (!stopFlag) &#123;</span><br><span class="line">        maq.changePhoto(<span class="number">-600</span>);</span><br><span class="line">        startInterval();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearTimeout(maq.timer);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">4500</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  startInterval();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里我循环动画没有用setInterval函数，而是用的setTimeout。因为setInterval的机制是每隔一段时间就把事件加入到队列中去，但如果之前的事件还没执行完，就会容易造成队列堵塞。比如说setInterval里的函数执行时间要4秒，如果setInterval的间隔时间少于4秒，则会造成队列里的事件越来越多，而之前的事件却没执行完，这样可能就会使队列里的事件堵塞，最后一次性全部执行，而没有达到预期的间隔效果。</p>
+<p>所以我用setTimeout来代替setInterval，每次要加入新的事件之前都先判断一下<code>stopFlag</code>是否为0。<code>stopFlag</code>的作用就是记录是否要停止动画，为0则不停止，为1则停止。</p>
+<p>这里记住要clearTimeout，目的是把已经在队列里但还没有执行的事件清除，这样可以达到立即停止动画的效果。</p>
+<h2 id="鼠标悬停停止轮播动画，离开后开始动画"><a href="#鼠标悬停停止轮播动画，离开后开始动画" class="headerlink" title="鼠标悬停停止轮播动画，离开后开始动画"></a>鼠标悬停停止轮播动画，离开后开始动画</h2><p>监听mouseover和mouseout事件来达到目的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wrap.addEventListener(<span class="string">'mouseover'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  stopFlag = <span class="number">1</span>;</span><br><span class="line">  clearTimeout(maq.timer);</span><br><span class="line">&#125;);</span><br><span class="line">wrap.addEventListener(<span class="string">'mouseout'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  stopFlag = <span class="number">0</span>;</span><br><span class="line">  startInterval();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="左右切换图片"><a href="#左右切换图片" class="headerlink" title="左右切换图片"></a>左右切换图片</h2><p>通过点击左右箭头按钮实现图片之间的滚动切换：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">prevBtn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    maq.changePhoto(<span class="number">600</span>); <span class="comment">// 向左滑</span></span><br><span class="line">&#125;);</span><br><span class="line">nextBtn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  maq.changePhoto(<span class="number">-600</span>);  <span class="comment">// 向右滑</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="点击小圆点跳转到对应图片"><a href="#点击小圆点跳转到对应图片" class="headerlink" title="点击小圆点跳转到对应图片"></a>点击小圆点跳转到对应图片</h2><p>这里我用了事件代理，不用在每个小圆点上绑定click事件，提高dom性能：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">btns.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="built_in">parseInt</span>(event.target.innerText);</span><br><span class="line">  <span class="keyword">if</span> (count &lt; <span class="number">6</span>) &#123;</span><br><span class="line">    maq.gotoPhoto(count);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="离开当前页面动画停止"><a href="#离开当前页面动画停止" class="headerlink" title="离开当前页面动画停止"></a>离开当前页面动画停止</h2><p>这里我开始没有想到，后来是当我每次切换到别的页面后再回到当前页面，发现动画效果出现问题了。经过一番debug才发现是因为chrome浏览器设置了离开当前页面后setInterval继续执行，如果setInterval的间隔时间小于100ms，则按100ms来执行，于是回来时动画的时间就发生错误了。</p>
+<p>所以我们需要设置离开页面时动画停止，这样也节省了不少性能。这里利用的是<code>onvisibilitychange</code>事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  <span class="comment">// 离开当前页面后动画停止</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.hidden) &#123;</span><br><span class="line">    stopFlag = <span class="number">1</span>;</span><br><span class="line">    clearTimeout(maq.timer);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    stopFlag = <span class="number">0</span>;</span><br><span class="line">    startInterval();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里可以直接调用<code>document.hidden</code>API判断当前页面是否被隐藏，如果document.hidden为true则代表已经切换到别的页面，于是设置<code>stopFlag</code>为1，使动画停止。也可以用<code>document.visibilityState</code>,如果不为’visible’，则代表离开了当前页面。</p>
+<p>这里其实可以不用setTimeout、setInterval来实现动画，而是用<code>requestAnimationFrame</code>，后者的优点是自动以浏览器支持的最小刷新间隔来实现重绘，使性能得到最大化提升，而且实现了离开页面重绘停止，大大节省性能。这里我就没有实现了，要想了解requestAnimationFrame，可参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">资料</a>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过上述方法，最后实现了一个比较完善的轮播图，全部的动画效果都是用JS来实现的。其实要想实现自动轮播，也可以用CSS3的animation来实现，而且实现起来更快，这里我就不阐述了。</p>
+<p>最后贴出实现的<a href="https://codepen.io/flyrk/full/brxQBm/">demo</a>。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Animation/">Animation</a> <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/05/what-is-heapSort/" data-tooltip="什么是堆排序">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/22/scroll-to-top-btn/" data-tooltip="原生JS实现回到顶部的效果">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/&amp;title=用原生JS写轮播图">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/05/what-is-heapSort/" data-tooltip="什么是堆排序">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/22/scroll-to-top-btn/" data-tooltip="原生JS实现回到顶部的效果">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/&amp;title=用原生JS写轮播图">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/&amp;title=用原生JS写轮播图">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/08/27/how-to-write-js-marquee/';
+                 
+                    this.page.identifier = '2017/08/27/how-to-write-js-marquee/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

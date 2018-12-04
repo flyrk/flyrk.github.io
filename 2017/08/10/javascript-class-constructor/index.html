@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>JS中&quot;类&quot;的构造与继承 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="有句话说“JavaScript里一切都是对象”，这句话当然是错的，因为它还有六种基本类型：String、Number、Boolean、Null、undefined、Symbol。对象才有属性和方法，当我们想要操作基本类型，比如获取length、截取长度等方法，JS就会自动把基本类型转换为对应的对象实例，我们就在对象实例上操作。">
+<meta name="keywords" content="JavaScript,Object">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JS中&quot;类&quot;的构造与继承">
+<meta property="og:url" content="https://flyrk.github.io/2017/08/10/javascript-class-constructor/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="有句话说“JavaScript里一切都是对象”，这句话当然是错的，因为它还有六种基本类型：String、Number、Boolean、Null、undefined、Symbol。对象才有属性和方法，当我们想要操作基本类型，比如获取length、截取长度等方法，JS就会自动把基本类型转换为对应的对象实例，我们就在对象实例上操作。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-18T04:34:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS中&quot;类&quot;的构造与继承">
+<meta name="twitter:description" content="有句话说“JavaScript里一切都是对象”，这句话当然是错的，因为它还有六种基本类型：String、Number、Boolean、Null、undefined、Symbol。对象才有属性和方法，当我们想要操作基本类型，比如获取length、截取长度等方法，JS就会自动把基本类型转换为对应的对象实例，我们就在对象实例上操作。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JS中&quot;类&quot;的构造与继承
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-10T21:46:33+08:00">
+	
+		    8月 10, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端必会/">前端必会</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>有句话说“JavaScript里一切都是对象”，这句话当然是错的，因为它还有六种基本类型：<code>String</code>、<code>Number</code>、<code>Boolean</code>、<code>Null</code>、<code>undefined</code>、<code>Symbol</code>。对象才有属性和方法，当我们想要操作基本类型，比如获取length、截取长度等方法，JS就会自动把基本类型转换为对应的对象实例，我们就在对象实例上操作。<br><a id="more"></a></p>
+<p>我们知道，JS里没有类似于C++、Java一样的<code>class</code>类，于是也就没有私有、公有之说。但这并不代表我们不能模拟一个类，因为类的思想在面向对象编程里是很重要的一点，对于对象的继承与方法的引用和代码的重构等等都有极大好处。所以很多人就在JS里模拟类的用法，ES6甚至官方定义了一个<code>class</code>语法，但这也不是真正的类，只是<code>class</code>的语法糖。</p>
+<p>说了这么多，JS里到底怎么实现类呢？利用函数的特性：所有的函数默认都会拥有一个名为prototype的公有且不可枚举的属性，它会指向另一个对象，也就是原型。</p>
+<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>什么是构造函数？我们知道<code>function</code>也是对象的一种，而当我们想要声明一个构造函数，可以使用下列形式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myConstructor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'Simon'</span>;</span><br><span class="line">  <span class="keyword">var</span> car = <span class="string">'BMW'</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getCar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(car);</span><br><span class="line">  &#125;</span><br><span class="line">  getCar();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObj = <span class="keyword">new</span> myConstructor();</span><br></pre></td></tr></table></figure></p>
+<p>使用上述方法我们就声明了一个构造函数<code>myConstructor</code>，但其实构造函数也是普通的对象，它和java里类的构造函数完全不一样。当我们使用<code>new</code>创建一个对象，实际上是把myObj的[[Prototype]]链接关联到myConstructor.prototype指向的对象。</p>
+<p>我们知道，真正的面向类的语言中，类可以被复制或者实例化很多次，每创建一个实例相当于把类的方法属性复制到新实例中。但javascript没有类似的复制机制，要想让新对象与构造的“类”对象有关系，就必须把两个对象的prototype关联起来。</p>
+<p>实际上并不存在所谓的“构造函数”，我们只是对函数的“构造调用”。</p>
+<p>当使用new来进行构造函数调用时，会执行以下四个步骤：</p>
+<ol>
+<li>创建一个全新的对象</li>
+<li>新对象会执行[[Prototype]]链接到constructor对象的prototype</li>
+<li>新对象会绑定到函数调用的this</li>
+<li>如果构造函数没有返回其他对象，那么new的函数调用会返回这个新对象</li>
+</ol>
+<p>这样一来，我们就把新对象与构造函数对象关联起来了。所以说函数不是构造函数，只是当且仅当使用new时，函数调用会变成“构造函数调用”。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//.....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Foo();</span><br><span class="line"></span><br><span class="line">a.constructor === Foo; <span class="comment">// true</span></span><br><span class="line">Foo.prototype.constructor === Foo; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>当我们创建了Foo函数，Foo.prototype默认有一个公有且不可枚举的属性constructor，这个属性引用的是对象关联的函数（也就是Foo）。而调用a.constructor，实际上只是通过[[Prototype]]委托给了Foo.prototype，所以指向了Foo。</p>
+<p>如果我们创建了新的原型对象，那么新对象并不会自动获得constructor属性，比如说：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//....</span></span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype = &#123; <span class="comment">/*....*/</span> &#125;; <span class="comment">// 创建了新的原型对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Foo();</span><br><span class="line">a.constructor === Foo; <span class="comment">// false</span></span><br><span class="line">a.constructor === <span class="built_in">Object</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>但问题来了，运行以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myObj.name; <span class="comment">// "Simon"</span></span><br><span class="line">myObj.car; <span class="comment">// undefined</span></span><br><span class="line">myObj.getCar(); <span class="comment">// Uncaught TypeError: myObj.getCar is not a function</span></span><br></pre></td></tr></table></figure></p>
+<p>为什么会这样呢？原因就是构造函数有作用域。<code>this.name = &#39;Simon&#39;</code>相当于给构造函数这个对象的<code>name</code>属性赋值<code>&quot;Simon&quot;</code>，这里的<code>this</code>指代构造函数对象原型。而在构造函数里使用<code>var</code>、<code>function</code>创建的变量和函数都相当于 <em>局部变量</em>，也就是“私有方法”，因为作用域的问题，这些变量和属性在构造函数之外是不能访问的，“私有方法”中的函数可以访问其他的私有变量，构造函数的实例却不能访问这些方法。</p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>那么，如果我们想要实例能继承构造函数的属性或者方法怎么办呢？JS使用的机制为 <em>原型继承</em>，请看以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">myConstructor.prototype.car = <span class="string">"Farrari"</span>;</span><br><span class="line">myConstructor.prototype.getCar = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.car);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">myObj.car; <span class="comment">// "Farrari"</span></span><br><span class="line">myObj.getCar(); <span class="comment">// "Farrari"</span></span><br></pre></td></tr></table></figure></p>
+<p>一旦我们在构造函数的原型上添加了属性car，当新对象myObj调用car属性时，它本身没有这个属性，于是就通过委托，在原型链上找，最后在myConsrtuctor.prototype上找到。</p>
+<p>但使用原型继承来实现子类继承父类更好的方法是这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Foo,prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params">name, type</span>) </span>&#123;</span><br><span class="line">  Foo.call(<span class="keyword">this</span>, name); <span class="comment">// 相当于ES6的super(name);</span></span><br><span class="line">  <span class="keyword">this</span>.type = type;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bar.prototype = <span class="built_in">Object</span>.create(Foo.prototype); <span class="comment">// 相当于ES6的extends</span></span><br><span class="line">Bar.prototype.constructor = Bar; <span class="comment">// 这里需要修复consructor</span></span><br><span class="line"></span><br><span class="line">Bar.prototype.getType = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.type);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Bar(<span class="string">'a'</span>, <span class="string">'obj a'</span>);</span><br><span class="line">a.getName(); <span class="comment">// 'a'</span></span><br><span class="line">a.getType(); <span class="comment">// 'obj a'</span></span><br></pre></td></tr></table></figure></p>
+<p>这里用到的核心语句就是<code>Bar.prototype = Object.create(Foo.prototype);</code>，调用Object.create(obj)会凭空创建一个新对象并把新对象的[[Prototype]]关联到obj上。</p>
+<p>我们来看看Object.create()的polyfill:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Object</span>.create) &#123;</span><br><span class="line">  <span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span> (<span class="params">proto, propsObj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!(proto === <span class="literal">null</span> || <span class="keyword">typeof</span> proto === <span class="string">'object'</span> || <span class="keyword">typeof</span> proto === <span class="string">'function'</span>)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">TypeError</span>(<span class="string">'Arguments must be object, or Null'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> temp = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    temp.__proto__ = proto;</span><br><span class="line">    <span class="keyword">if</span> (propsObj) &#123;</span><br><span class="line">      <span class="built_in">Object</span>.defineProperty(temp, propsObj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有的人可能会说，为什么不能直接<code>Bar.prototype = Foo.prototype;</code>呢？这样并不会创建一个关联到Foo.prototype的新对象，只是让Bar.prototype引用Foo.prototype对象，我们执行<code>Bar.prototype.getType = ....</code>也会在Foo.prototype上修改，跟预料的结果不一样。那这样根本不需要Bar，还不如直接在Foo上修改就好了。</p>
+<p>而之前介绍的<code>Bar.prototype = new Foo()</code>虽然也能实现原型继承，但它会有一些副作用。比如Foo如果有（写日志、修改状态、注册到其他对象、给this添加属性等等）的行为，就会影响到Bar的子类，造成无法预料的结果。</p>
+<p>所以，要创建一个关联的“子类”对象，我们必须使用Object.create()，但这样有一个缺点是要创建一个新对象而把旧对象抛弃。</p>
+<p>好在ES6添加了<code>Object.setPrototypeOf(...)</code>方法，可以修改关联。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Bar.prototype = <span class="built_in">Object</span>.create(Foo.prototype); <span class="comment">// ES6之前需要抛弃默认对象</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(Bar.prototype, Foo.prototype); <span class="comment">// ES6可以直接修改Bar.prototype对象</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="检查“类”的关系"><a href="#检查“类”的关系" class="headerlink" title="检查“类”的关系"></a>检查“类”的关系</h1><p>考虑以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.blah = ...;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure></p>
+<p>我们如果想要判断a的原型是否与Foo关联起来了，我们可以有以下几种方法：</p>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a <span class="keyword">instanceof</span> Foo; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>但这样有个缺点是只能处理对象和函数之间的关系。如果我们想判断两个对象之间是否通过[[Prototype]]关联。可以用下列方法：</p>
+<h2 id="isPrototypeOf-NaN"><a href="#isPrototypeOf-NaN" class="headerlink" title="isPrototypeOf()"></a>isPrototypeOf()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo.prototype.isPrototypeOf(a); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>要判断两个对象之间的关系，更直接：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.isPrototypeOf(c); <span class="comment">// 判断b是否出现在c的原型链中</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(a) === Foo.prototype; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p>我们可以直接用非标准的<code>__proto__</code>属性，<code>__proto__</code>实际上存在于内置的Object.prototype中，且不可枚举。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.__proto__ === Foo.prototype; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>要想创建类似于“类”的对象，可以使用构造函数调用，给构造函数添加公有方法，在构造函数的<code>prototype</code>上添加属性。新对象想要继承构造函数，使用Javascript的原型继承机制。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a> <a class="tag tag--primary tag--small t-link" href="/tags/Object/">Object</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/12/how-to-set-cookie-in-js/" data-tooltip="JS如何设置Cookies">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/09/thought-of-today/" data-tooltip="这些天的感想">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/&amp;title=JS中&quot;类&quot;的构造与继承">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/12/how-to-set-cookie-in-js/" data-tooltip="JS如何设置Cookies">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/09/thought-of-today/" data-tooltip="这些天的感想">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/&amp;title=JS中&quot;类&quot;的构造与继承">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/&amp;title=JS中&quot;类&quot;的构造与继承">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2017/08/10/javascript-class-constructor/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2017/08/10/javascript-class-constructor/';
+                 
+                    this.page.identifier = '2017/08/10/javascript-class-constructor/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>

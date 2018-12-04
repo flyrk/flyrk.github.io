@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Flyrk&#39;s Blog">
+    <title>纯CSS绘制不同的图形 - Flyrk&#39;s Blog</title>
+    <meta name="author" content="Flyrk">
+    
+    
+        <link rel="icon" href="https://flyrk.github.io/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="为什么要用CSS绘制图形？我们知道，一般表示图案可以用img标签，直接用切好的图片，或者用background加载背景图。但是，当我们遇到一些小图标，比如说三角箭头、半圆、对话框、圆形等等。这些简单的图案其实可以完全使用CSS来生成，这样可以极大的减少图片资源的请求和加载，从而使网页加载速度更快。">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="纯CSS绘制不同的图形">
+<meta property="og:url" content="https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/index.html">
+<meta property="og:site_name" content="Flyrk&#39;s Blog">
+<meta property="og:description" content="为什么要用CSS绘制图形？我们知道，一般表示图案可以用img标签，直接用切好的图片，或者用background加载背景图。但是，当我们遇到一些小图标，比如说三角箭头、半圆、对话框、圆形等等。这些简单的图案其实可以完全使用CSS来生成，这样可以极大的减少图片资源的请求和加载，从而使网页加载速度更快。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/circle.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/oval.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-top.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-bottom.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-left.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-right.jpg">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/border-top-left-radius.png">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/trapezoid.png">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/parallel.png">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/star-five.png">
+<meta property="og:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/star-six.png">
+<meta property="og:updated_time" content="2018-12-04T04:11:40.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="纯CSS绘制不同的图形">
+<meta name="twitter:description" content="为什么要用CSS绘制图形？我们知道，一般表示图案可以用img标签，直接用切好的图片，或者用background加载背景图。但是，当我们遇到一些小图标，比如说三角箭头、半圆、对话框、圆形等等。这些简单的图案其实可以完全使用CSS来生成，这样可以极大的减少图片资源的请求和加载，从而使网页加载速度更快。">
+<meta name="twitter:image" content="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/circle.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Flyrk&#39;s Blog</a>
+    </div>
+    
+        
+            <a class="header-right-icon open-algolia-search" href="#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+                </a>
+                <h4 class="sidebar-profile-name">Flyrk</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ ">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/flyrk" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            纯CSS绘制不同的图形
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-12-03T20:44:19+08:00">
+	
+		    12月 03, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/设计之美/">设计之美</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>为什么要用CSS绘制图形？我们知道，一般表示图案可以用<code>img</code>标签，直接用切好的图片，或者用<code>background</code>加载背景图。但是，当我们遇到一些小图标，比如说三角箭头、半圆、对话框、圆形等等。这些简单的图案其实可以完全使用CSS来生成，这样可以极大的减少图片资源的请求和加载，从而使网页加载速度更快。<br><a id="more"></a></p>
+<h1 id="基本图案"><a href="#基本图案" class="headerlink" title="基本图案"></a>基本图案</h1><h2 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h2><p>圆形可以说是除了方形以外最容易表达的图形了，多亏了CSS3的<code>border-radius</code>属性：</p>
+<h3 id="基本圆形"><a href="#基本圆形" class="headerlink" title="基本圆形"></a>基本圆形</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/circle.jpg" alt="circle"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.circle</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="椭圆形"><a href="#椭圆形" class="headerlink" title="椭圆形"></a>椭圆形</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/oval.jpg" alt="oval"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.oval</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50px</span> / <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h2><p>三角形其实利用的是<code>border</code>属性，利用不同方向的<code>border</code>宽度和颜色可以展现不同的三角形。</p>
+<h3 id="triangle-top："><a href="#triangle-top：" class="headerlink" title="triangle-top："></a>triangle-top：</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-top.jpg" alt="triangle-top"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.top-triangle</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">100px</span> solid red;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="triangle-bottom"><a href="#triangle-bottom" class="headerlink" title="triangle-bottom"></a>triangle-bottom</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-bottom.jpg" alt="triangle-bottom"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.bottom-triangle</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid red;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="triangle-left"><a href="#triangle-left" class="headerlink" title="triangle-left"></a>triangle-left</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-left.jpg" alt="triangle-left"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.left-triangle</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="triangle-right"><a href="#triangle-right" class="headerlink" title="triangle-right"></a>triangle-right</h3><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/triangle-right.jpg" alt="triangle-right"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.right-triangle</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其他的三角形也就是利用border属性进行的变形。</p>
+<h1 id="特殊图案"><a href="#特殊图案" class="headerlink" title="特殊图案"></a>特殊图案</h1><h2 id="跳转图标"><a href="#跳转图标" class="headerlink" title="跳转图标"></a>跳转图标</h2><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/border-top-left-radius.png" alt="border-top-left-radius"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.curvedarrow</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">26px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">26px</span> solid red;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(10deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.curvedarrow</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">6px</span> solid red;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">20px</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: -<span class="number">26px</span>;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(45deg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里主要利用的属性有两个，一个是<code>border-radius: 20px 0 0 0;</code>。为什么要这样用呢？其实<code>border-radius</code>最多支持四个值：<code>border-top-left-radius</code>, <code>border-top-right-radius</code>,<code>border-bottom-right-radius</code>, and <code>border-bottom-left-radius</code>。这里我们把<code>border-top-left-radius</code>设为20px，其他的都设为0，再加上只设<code>border-top</code>的宽度，最后出来是一个尾部有弧度的长条。</p>
+<p>第二个属性则是<code>rotate(deg)</code>，将两个图形经过不同的角度旋转后再移动长条的位置进行组合，最后达到跳转箭头的图标效果。</p>
+<h2 id="等腰梯形"><a href="#等腰梯形" class="headerlink" title="等腰梯形"></a>等腰梯形</h2><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/trapezoid.png" alt="trapezoid"><br>梯形其实很好理解，通过设置border的宽度和透明度就可以形成梯形：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.trapezoid</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">30px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">30px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="平行四边形"><a href="#平行四边形" class="headerlink" title="平行四边形"></a>平行四边形</h2><p><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/parallel.png" alt="parallel"><br>很简单，直接利用<code>transform: skew(deg)</code>就可以得到任意角度的平行四边形：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parallel</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">skew</span>(30deg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="五角星"><a href="#五角星" class="headerlink" title="五角星"></a>五角星</h2><p>其原理是利用三个三角形通过旋转不同的角度和绝对定位拼接而成。<br><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/star-five.png" alt="star-five"><br>具体代码如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.star-five</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">50px</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">70px</span> solid red;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(35deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.star-five</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">80px</span> solid red;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">30px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">30px</span> solid transparent;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: -<span class="number">45px</span>;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">65px</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-35deg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.star-five</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">105px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">70px</span> solid red;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-70deg);</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="六角星"><a href="#六角星" class="headerlink" title="六角星"></a>六角星</h2><p>利用两个三角形拼接而成。<br><img src="https://photos-1258216033.cos.ap-shanghai.myqcloud.com/star-six.png" alt="star-six"><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.star-six</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid red;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.star-six</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">50px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">100px</span> solid red;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS/">CSS</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/27/codemirror-markdown-editor/" data-tooltip="实现基于codemirror的markdown编辑器有哪些坑">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/&amp;title=纯CSS绘制不同的图形">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Flyrk. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/27/codemirror-markdown-editor/" data-tooltip="实现基于codemirror的markdown编辑器有哪些坑">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/&amp;title=纯CSS绘制不同的图形">
+                    <i class="fa fa-qq"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-star"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-weibo"></i><span>分享到 微博</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/&amp;title=纯CSS绘制不同的图形">
+                    <i class="fa fa-qq"></i><span>分享到 QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/">
+                    <i class="fa fa-star"></i><span>分享到 Qzone</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/2ff0cf5f613b03e6e40745431a7b9c8b?s=110" alt="作者的图片">
+        
+            <h4 id="about-card-name">Flyrk</h4>
+        
+            <div id="about-card-bio"><p>前端开发新人一枚，每天进步一点点，在技术的路上勇敢前行！:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>前端开发工程师</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search" class="form-control input--large search-input" placeholder="Search ">
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/thoughts/">
+                            <h3 class="media-heading">我的博客终于搭好了！</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/03/achieve-binary-search-tree/">
+                            <h3 class="media-heading">二叉搜索树JavaScript实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月3日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h3><p>其形式就是二叉树，对于每个节点x，其左子树的值&lt;=x.value，右子树的值&gt;=x.value。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/04/http-learning-1/">
+                            <h3 class="media-heading">深入学习HTTP连接</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月4日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><hr>
+<p>HTTP协议是可靠的数据传输无状态协议，它属于应用层。HTTP把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP。<br>只要建立了TCP连接，客户端和服务端之间的报文交换就不会丢失、不会被破坏。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/06/Closures-learning/">
+                            <h3 class="media-heading">深刻理解闭包</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月6日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
+<ul>
+<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
+<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。</li></ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://flyrk.github.io/2017/04/09/leetcode-week1/">
+                            <h3 class="media-heading">leetcode刷题ing</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2017年4月9日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间面试时算法题做的一塌糊涂，深感自己算法还有很大的不足，所以这周开始在leetcode刷题了。<br>其实早就知道leetcode这个网站，以前大一时都是在OJ刷题，当时都是用C++，后来发现leetcode的题也很全，而且支持Javascript，这点让我很开心，于是就转战leetcode吧！以后基本每天都会刷刷题，练练算法，也当给自己复习～代码就不贴了。。。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium" data-message-zero="没有找到文章" data-message-one="找到 1 篇文章" data-message-other="找到 {n} 篇文章">
+                找到 29 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/philippe-toupet.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://flyrk.github.io/2018/12/03/draw-different-shapes-with-css/';
+                 
+                    this.page.identifier = '2018/12/03/draw-different-shapes-with-css/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'xmflyrk-com';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('HWHR91XKZX', 'df4b3dfaaf48b89033b0935ccf26e541');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+
+    </body>
+</html>
