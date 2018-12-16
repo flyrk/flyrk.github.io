@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Flyrk&#39;s Blog">
-    <title>实现基于codemirror的markdown编辑器有哪些坑 - Flyrk&#39;s Blog</title>
+    <title>实现基于codemirror的markdown编辑器(一) - Flyrk&#39;s Blog</title>
     <meta name="author" content="Flyrk">
     
     
@@ -15,18 +15,18 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="我们都知道，Markdown编辑器是个大坑，特别是如果要实现实时预览、同步滚动、支持标签按钮添加。HTML本身的textarea标签其实就是一个简单的文本编辑框，但它的功能太简单了，无法满足markdown编辑器的需求，所以我们需要对其进行改造，实现一个可同步预览并实时滚动的markdown编辑器。 其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，但是如果想要自">
-<meta name="keywords" content="React,codemirror,Editor">
+    <meta name="description" content="我们知道，要实现一个Markdown编辑器，一般会想要实现这样的功能：实时预览、同步滚动、支持标签按钮添加、markdown语法高亮等等。那么如何去实现一个功能比较完整的markdown编辑器呢？ 首先这里我们只讨论web端，其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，很多都可以拿来直接用，满足基本需求足够了。但是作为前端程序员来说，当然想要实现一个自己定制">
+<meta name="keywords" content="React,codemirror,Editor,markdown">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="实现基于codemirror的markdown编辑器有哪些坑">
-<meta property="og:url" content="https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/index.html">
+<meta property="og:title" content="实现基于codemirror的markdown编辑器(一)">
+<meta property="og:url" content="https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/index.html">
 <meta property="og:site_name" content="Flyrk&#39;s Blog">
-<meta property="og:description" content="我们都知道，Markdown编辑器是个大坑，特别是如果要实现实时预览、同步滚动、支持标签按钮添加。HTML本身的textarea标签其实就是一个简单的文本编辑框，但它的功能太简单了，无法满足markdown编辑器的需求，所以我们需要对其进行改造，实现一个可同步预览并实时滚动的markdown编辑器。 其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，但是如果想要自">
+<meta property="og:description" content="我们知道，要实现一个Markdown编辑器，一般会想要实现这样的功能：实时预览、同步滚动、支持标签按钮添加、markdown语法高亮等等。那么如何去实现一个功能比较完整的markdown编辑器呢？ 首先这里我们只讨论web端，其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，很多都可以拿来直接用，满足基本需求足够了。但是作为前端程序员来说，当然想要实现一个自己定制">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-12-07T06:28:16.312Z">
+<meta property="og:updated_time" content="2018-12-16T03:43:02.268Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现基于codemirror的markdown编辑器有哪些坑">
-<meta name="twitter:description" content="我们都知道，Markdown编辑器是个大坑，特别是如果要实现实时预览、同步滚动、支持标签按钮添加。HTML本身的textarea标签其实就是一个简单的文本编辑框，但它的功能太简单了，无法满足markdown编辑器的需求，所以我们需要对其进行改造，实现一个可同步预览并实时滚动的markdown编辑器。 其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，但是如果想要自">
+<meta name="twitter:title" content="实现基于codemirror的markdown编辑器(一)">
+<meta name="twitter:description" content="我们知道，要实现一个Markdown编辑器，一般会想要实现这样的功能：实时预览、同步滚动、支持标签按钮添加、markdown语法高亮等等。那么如何去实现一个功能比较完整的markdown编辑器呢？ 首先这里我们只讨论web端，其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，很多都可以拿来直接用，满足基本需求足够了。但是作为前端程序员来说，当然想要实现一个自己定制">
     
     
         
@@ -181,14 +181,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            实现基于codemirror的markdown编辑器有哪些坑
+            实现基于codemirror的markdown编辑器(一)
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2018-10-27T08:23:57+08:00">
+    <time itemprop="datePublished" datetime="2018-12-15T22:23:57+08:00">
 	
-		    10月 27, 2018
+		    12月 15, 2018
     	
     </time>
     
@@ -205,11 +205,50 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>我们都知道，Markdown编辑器是个大坑，特别是如果要实现实时预览、同步滚动、支持标签按钮添加。HTML本身的<code>textarea</code>标签其实就是一个简单的文本编辑框，但它的功能太简单了，无法满足markdown编辑器的需求，所以我们需要对其进行改造，实现一个可同步预览并实时滚动的markdown编辑器。</p>
-<p>其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，但是如果想要自己添加标签定制的话，就不能直接拿这些编辑器直接用，所以没办法，还是从头开始一步一步踩坑吧。<br><a id="more"></a></p>
-<h1 id="为什么选择CodeMirror"><a href="#为什么选择CodeMirror" class="headerlink" title="为什么选择CodeMirror"></a>为什么选择CodeMirror</h1><p>要实现一个markdown编辑器，首先得找到一个合适的框架，自己从头开始手撸也不是不可以，但那样太耗时间，以后可以考虑自己写一个，但目前市面上优秀的markdown框架也是很多的。由于现在自己写的项目一般都使用React，所以理所当然能找到一个比较契合React的Markdown框架是更好的。</p>
+            <p>我们知道，要实现一个Markdown编辑器，一般会想要实现这样的功能：实时预览、同步滚动、支持标签按钮添加、markdown语法高亮等等。那么如何去实现一个功能比较完整的markdown编辑器呢？</p>
+<p>首先这里我们只讨论web端，其实现在市面上的Markdown编辑器已经很优秀了，有道笔记、印象笔记、Cmd等等，很多都可以拿来直接用，满足基本需求足够了。但是作为前端程序员来说，当然想要实现一个自己定制化的markdown编辑器比较有意思，不过通过查阅资料文档和各种框架比较，发现也不是那么容易的事。<br><a id="more"></a></p>
+<h1 id="框架选择"><a href="#框架选择" class="headerlink" title="框架选择"></a>框架选择</h1><p>要实现一个markdown编辑器，首先得找到一个合适的框架，目前市面上优秀的markdown框架五花八门。由于现在自己写的项目一般都使用React，所以理所当然能找到一个比较契合React的Markdown框架是更好的。</p>
 <p>经过前期调研，发现有几款基于React的Markdown框架还不错，<a href="https://zenoamaro.github.io/react-quill/">react-quill</a>、facebook的<a href="https://draftjs.org/docs/getting-started.html">draft</a>、<a href="https://github.com/scniro/react-codemirror2">react-codemirror2</a>，但它们其实都是富文本编辑器，定制的东西已经很完善了，我想要的框架是可支持自定义扩展，定制化自己想要的功能，找来找去，最后决定基于<a href="https://codemirror.net/doc/manual.html#api">CodeMirror</a>来自己实现一个定制化的markdown编辑器。因为CodeMirror其实相当于一个基础的框架，它有很多可配置项，可以自己添加工具栏，添加各种实用功能，这正好满足了我的需求，于是就决定用它了！</p>
-<h1 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h1><p>都说编辑器是个大坑，特别是web编辑器，</p>
+<h1 id="CodeMirror"><a href="#CodeMirror" class="headerlink" title="CodeMirror"></a>CodeMirror</h1><p>现代很多编辑器其实都基于<code>codemirror</code>，为什么要选择它呢？这都得益于它强大的API和配置项，在不失基本功能的同时给予了开发者极大的定制空间，开发者可以基于它开发出各种功能的markdown编辑器。这里我先简单介绍一下codemirror的一些基本操作。想要了解更多有关codemirror，可以去看<a href="https://codemirror.net/doc/manual.html">官方文档</a>。</p>
+<h2 id="如何加载codemirror"><a href="#如何加载codemirror" class="headerlink" title="如何加载codemirror"></a>如何加载codemirror</h2><p>一般我们在项目里npm下载完codemirror包后，在代码里引入<code>codemirror.js</code>，而且还会根据需要引入想要的语言模式包：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> CM <span class="keyword">from</span> <span class="string">'codemirror'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'codemirror/mode/xml/xml'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'codemirror/mode/markdown/markdown'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'codemirror/addon/edit/continuelist'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>当然，我们还得在html里引入<code>codemirror.css</code>样式，也可以自己修改成想要的样式。</p>
+<p>然后，在需要加载的地方写html标签，id为<code>codemirror</code>，这里我们用的是JSX：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">"editor-root"</span> ref=&#123;(elem) =&gt; &#123; <span class="keyword">this</span>.editRoot = elem; &#125;&#125;&gt;</span><br><span class="line">  &lt;textarea id=<span class="string">"codemirror"</span> name=&#123;<span class="keyword">this</span>.props.path&#125; autoComplete=<span class="string">"off"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我在<code>textarea</code>外面用div包了一层，是为了方便之后的滚动效果。这样，我们就已经可以使用codemirror写一个markdown编辑器了。</p>
+<h2 id="options-可以使用的参数"><a href="#options-可以使用的参数" class="headerlink" title="options 可以使用的参数"></a>options 可以使用的参数</h2><p>  CodeMirror函数和它的fromTextArea方法都可以使用一个配置对象作为第二个参数。这个options极为重要，基本就决定了你的编辑器主要的输入语言、样式、内容。这里列一下它几个常用的可选的参数：</p>
+<ul>
+<li>value: string | CodeMirror.Doc<br>编辑器的初始值（文本），可以是字符串或者CodeMirror文档对象(不同于HTML文档对象)。</li>
+<li>mode: string | object<br>通用的或者在CodeMirror中使用的与mode相关联的mime，当不设置这个值的时候，会默认使用第一个载入的mode定义文件。一般地，会使用关联的mime类型来设置这个值；除此之外，也可以使用一个带有name属性的对象来作为值（如：{name: “javascript”, json: true}）。可以通过访问CodeMirror.modes和CodeMirror.mimeModes获取定义的mode和MIME。</li>
+<li>lineSeparator: string|null<br>明确指定编辑器使用的行分割符（换行符）。默认（值为null）情况下，文档会被 CRLF(以及单独的CR, LF)分割，单独的LF会在所有的输出中用作换行符（如：getValue）。当指定了换行字符串，行就只会被指定的串分割。</li>
+<li>theme: string<br>配置编辑器的主题样式。要使用主题，必须保证名称为 .cm-s-[name] (name是设置的theme的值)的样式是加载上了的。当然，你也可以一次加载多个主题样式，使用方法和html和使用类一样，如： theme: foo bar，那么此时需要cm-s-foo cm-s-bar这两个样式都已经被加载上了。</li>
+<li>indentUnit: integer<br>缩进单位，值为空格数，默认为2 。</li>
+<li>smartIndent: boolean<br>自动缩进，设置是否根据上下文自动缩进（和上一行相同的缩进量）。默认为true。</li>
+<li>tabSize: integer<br>tab字符的宽度，默认为4 。</li>
+<li>indentWithTabs: boolean<br>在缩进时，是否需要把 n*tab宽度个空格替换成n个tab字符，默认为false 。</li>
+<li>electricChars: boolean<br>在输入可能改变当前的缩进时，是否重新缩进，默认为true （仅在mode支持缩进时有效）。</li>
+<li>keyMap: string<br>配置快捷键。默认值为default，即 codemorrir.js 内部定义。其它在key map目录下。</li>
+<li>extraKeys: object<br>给编辑器绑定与前面keyMap配置不同的快捷键。</li>
+<li>lineWrapping: boolean<br>在长行时文字是换行(wrap)还是滚动(scroll)，默认为滚动(scroll)。</li>
+<li>lineNumbers: boolean<br>是否在编辑器左侧显示行号。</li>
+<li>firstLineNumber: integer<br>行号从哪个数开始计数，默认为1 。</li>
+<li>lineNumberFormatter: function(line: integer) → string<br>使用一个函数设置行号。</li>
+<li>scrollbarStyle: string<br>设置滚动条。默认为”native”，显示原生的滚动条。核心库还提供了”null”样式，此样式会完全隐藏滚动条。Addons可以设置更多的滚动条模式。</li>
+<li>inputStyle: string<br>选择CodeMirror处理输入和焦点的方式。核心库定义了textarea和contenteditable输入模式。在移动浏览器上，默认是contenteditable，在桌面浏览器上，默认是textarea。在contenteditable模式下对IME和屏幕阅读器支持更好。</li>
+<li>readOnly: boolean|string<br>编辑器是否只读。如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。</li>
+<li>showCursorWhenSelecting: boolean<br>在选择时是否显示光标，默认为false。</li>
+<li>autofocus: boolean<br>是否在初始化时自动获取焦点。默认情况是关闭的。但是，在使用textarea并且没有明确指定值的时候会被自动设置为true。</li>
+</ul>
+<p>更多的配置请查看<a href="https://codemirror.net/doc/manual.html#config">相关文档</a>。</p>
+<h1 id="实时预览"><a href="#实时预览" class="headerlink" title="实时预览"></a>实时预览</h1><p>这个需求可以说是现代markdown编辑器的基本需求，因为markdown写起来本身是没有任何样式的，纯文本的话对于有些人来说不能看到最终效果就很不习惯，自己写的效果怎么样都不知道，写的心里就会很没底（当然再花哨的样式最后还是要看内容好不好）。说白了，实时预览更多是写作时一个心理上的满足，这对于写作体验的提升来说是必不可少的。</p>
+<p>这里的markdown渲染引擎我直接用了比较受欢迎的<a href="https://marked.js.org/#/README.md#README.md"><code>marked</code></a>库，其实markdown渲染是很考验技术的一门活，绝大部分都是用正则匹配来进行标签的替换，但由于markdown的语法相对还是较多的，要自己写一个markdown渲染引擎还是有点难度的，考虑到时间因素所以一般都会用现成的库，当然以后有时间的话我也会考虑写一个markdown渲染引擎玩玩。</p>
+<p>这里我因为是用<code>React</code>写的markdown组件，下面我就简单的介绍下如何实现实时预览。</p>
+<p>首先在组件渲染完后，我们在<code>componentDidMount</code>函数里对codemirror进行事件监听：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount () &#123;</span><br><span class="line">  <span class="comment">// 因为需要使用fromTextArea获取options，所以采用document.getElementById</span></span><br><span class="line">  <span class="keyword">this</span>.codeMirror = CM.fromTextArea(ReactDOM.findDOMNode(<span class="built_in">document</span>.getElementById(<span class="string">'codemirror'</span>)), <span class="keyword">this</span>.getOptions());</span><br><span class="line">  <span class="keyword">this</span>.props.init(<span class="keyword">this</span>.editRoot, <span class="keyword">this</span>.codeMirror);</span><br><span class="line">  <span class="keyword">this</span>.codeMirror.setValue(<span class="keyword">this</span>.props.defaultValue);</span><br><span class="line">  <span class="keyword">this</span>.codeMirror.on(<span class="string">'change'</span>, <span class="keyword">this</span>.codemirrorValueChanged);</span><br><span class="line">  <span class="keyword">this</span>._currentCodemirrorValue = <span class="keyword">this</span>.props.defaultValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们使用<code>fromTextArea</code>获取codemirror的dom节点，它支持两个参数，第一个是codemirror所挂载的dom节点，第二个是配置的options。</p>
+<p>之后调用init函数，这里之后会讲。然后就是初始值设置<code>codemirror.setValue(defaultValue)</code>，因为是编辑器，如果想对之前的文档进行修改，肯定需要传入初始值。</p>
+<p>然后就是关键的监听事件<code>change</code>，当输入变化时调用<code>this.codemirrorValueChanged</code>事件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">codemirrorValueChanged = <span class="function">(<span class="params">cm</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> newValue = cm.getValue();</span><br><span class="line">  <span class="keyword">this</span>._currentCodemirrorValue = cm.getValue();</span><br><span class="line">  <span class="keyword">this</span>.props.onChange &amp;&amp; <span class="keyword">this</span>.props.onChange(newValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里说下，我们通过<code>cm.getValue()</code>获取当前输入的值，然后通过调用<code>props.onChange(newValue)</code>将值抛给父组件处理。因为这里我想把编辑部分和预览部分分开来做成两个公共组件，这样组件复用性更强，有的可能只需要编辑功能，有的只需要预览展示功能。<br>那么在父组件里，我们需要对<code>onChange</code>事件传入的值进行处理，将其渲染成html然后展示出来，其实很简单：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MarkdownEditor</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">  handleEditChange = <span class="function">(<span class="params">newCode</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.renderMarkdown &amp;&amp; <span class="keyword">this</span>.props.renderMarkdown(newCode);</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      code: newCode,</span><br><span class="line">      hasChanged: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  debounceEditChange = debounce(<span class="keyword">this</span>.handleEditChange, <span class="number">500</span>);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> preview = marked(<span class="keyword">this</span>.state.code);</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;MyEditor</span><br><span class="line">          defaultValue=&#123;<span class="keyword">this</span>.state.code&#125;</span><br><span class="line">          onChange=&#123;<span class="keyword">this</span>.debounceEditChange&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;div className=<span class="string">"md-preview-container"</span>&gt;</span><br><span class="line">          &lt;div className=<span class="string">"preview-content"</span> dangerouslySetInnerHTML=&#123;&#123;<span class="attr">__html</span>: preview&#125;&#125;/&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意的是，我用到了<code>debounce</code>函数进行延迟处理：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, delay = <span class="number">20</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">      clearTimeout(timeout);</span><br><span class="line">    &#125;</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fn.call(self, ...args);</span><br><span class="line">    &#125;, delay);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为考虑到性能原因，如果输入过快的话，<code>change</code>事件频繁触发，预览页面不断重绘，性能损耗十分严重，所以我用到了<code>debounce</code>，并设置延迟时间500毫秒，当然可以更短，这里我觉得设置500毫秒已经足够了。这样就达到了实时预览的效果。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>基于codemirror的markdown编辑器实现起来其实还有很多坑，本篇先介绍了<code>codemirror</code>的一些基本配置和如何实现markdown实时预览，接下来我将进一步介绍如何实现同屏滚动和自定义标签按钮等其他功能。</p>
 
             
             <!-- copyright -->
@@ -222,7 +261,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Editor/">Editor</a> <a class="tag tag--primary tag--small t-link" href="/tags/React/">React</a> <a class="tag tag--primary tag--small t-link" href="/tags/codemirror/">codemirror</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Editor/">Editor</a> <a class="tag tag--primary tag--small t-link" href="/tags/React/">React</a> <a class="tag tag--primary tag--small t-link" href="/tags/codemirror/">codemirror</a> <a class="tag tag--primary tag--small t-link" href="/tags/markdown/">markdown</a>
 
             </div>
         
@@ -232,7 +271,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/03/draw-different-shapes-with-css/" data-tooltip="纯CSS绘制不同的图形">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -240,7 +279,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/05/what-is-heapSort/" data-tooltip="什么是堆排序">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/04/copy-to-clipboard/" data-tooltip="点击按钮粘贴所选内容到剪贴板">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -258,7 +297,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -266,7 +305,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-weixin"></i>
                 </a>
             </li>
@@ -274,7 +313,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-weibo"></i>
                 </a>
             </li>
@@ -282,7 +321,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/&amp;title=实现基于codemirror的markdown编辑器有哪些坑">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/&amp;title=实现基于codemirror的markdown编辑器(一)">
                     <i class="fa fa-qq"></i>
                 </a>
             </li>
@@ -326,7 +365,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/03/draw-different-shapes-with-css/" data-tooltip="纯CSS绘制不同的图形">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -334,7 +373,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/05/what-is-heapSort/" data-tooltip="什么是堆排序">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/04/copy-to-clipboard/" data-tooltip="点击按钮粘贴所选内容到剪贴板">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -352,7 +391,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -360,7 +399,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-weixin"></i>
                 </a>
             </li>
@@ -368,7 +407,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                     <i class="fa fa-weibo"></i>
                 </a>
             </li>
@@ -376,7 +415,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/&amp;title=实现基于codemirror的markdown编辑器有哪些坑">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/&amp;title=实现基于codemirror的markdown编辑器(一)">
                     <i class="fa fa-qq"></i>
                 </a>
             </li>
@@ -411,7 +450,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                 <i class="fa fa-twitter"></i><span>
                     分享到 Twitter</span>
             </a>
@@ -421,7 +460,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+            <a class="share-option-btn" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                 <i class="fa fa-weixin"></i><span>
                     分享到朋友圈</span>
             </a>
@@ -431,7 +470,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/">
+            <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/">
                 <i class="fa fa-weibo"></i><span>
                     分享到 微博</span>
             </a>
@@ -441,7 +480,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/10/27/codemirror-markdown-editor/&amp;title=实现基于codemirror的markdown编辑器有哪些坑">
+            <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2018/12/15/codemirror-markdown-editor-chapter1/&amp;title=实现基于codemirror的markdown编辑器(一)">
                 <i class="fa fa-qq"></i><span>
                     分享到 QQ</span>
             </a>
@@ -661,7 +700,7 @@
                 var cs = 'fcb0584c1228acd4317926b1f427051bc6b9f03c';
                 var language = 'zh-CN';
                 var gitalk = new Gitalk({
-                    id: 'Sat Oct 27 2018 08:23:57 GMT+0800', 
+                    id: 'Sat Dec 15 2018 22:23:57 GMT+0800', 
                     owner: owner,
                     repo: repo,
                     admin: [owner],
