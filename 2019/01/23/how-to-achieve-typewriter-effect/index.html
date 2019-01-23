@@ -8,7 +8,7 @@
     <meta name="baidu-site-verification" content="csgbDEyR1b" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Flyrk&#39;s Blog">
-    <title>深刻理解闭包 - Flyrk&#39;s Blog</title>
+    <title>如何实现文字输入效果 - Flyrk&#39;s Blog</title>
     <meta name="author" content="Flyrk">
     
     
@@ -17,18 +17,18 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
-<meta name="keywords" content="闭包">
+    <meta name="description" content="我们看到有些网站的文字会有类似于输入的效果，就好像自动打字一样，虽然这个效果用的地方可能不多，但如果用的好的话可能会有奇效，比如在博客、演讲展示等方面应用。那么，怎么实现呢？">
+<meta name="keywords" content="animation,setTimeout">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="深刻理解闭包">
-<meta property="og:url" content="https://flyrk.github.io/2017/04/06/Closures-learning/index.html">
+<meta property="og:title" content="如何实现文字输入效果">
+<meta property="og:url" content="https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/index.html">
 <meta property="og:site_name" content="Flyrk&#39;s Blog">
-<meta property="og:description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
+<meta property="og:description" content="我们看到有些网站的文字会有类似于输入的效果，就好像自动打字一样，虽然这个效果用的地方可能不多，但如果用的好的话可能会有奇效，比如在博客、演讲展示等方面应用。那么，怎么实现呢？">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-12-07T06:36:22.116Z">
+<meta property="og:updated_time" content="2019-01-23T14:36:47.182Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深刻理解闭包">
-<meta name="twitter:description" content="变量的知识  变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。 变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。">
+<meta name="twitter:title" content="如何实现文字输入效果">
+<meta name="twitter:description" content="我们看到有些网站的文字会有类似于输入的效果，就好像自动打字一样，虽然这个效果用的地方可能不多，但如果用的好的话可能会有奇效，比如在博客、演讲展示等方面应用。那么，怎么实现呢？">
     
     
         
@@ -183,20 +183,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            深刻理解闭包
+            如何实现文字输入效果
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2017-04-06T20:45:59+08:00">
+    <time itemprop="datePublished" datetime="2019-01-23T19:01:58+08:00">
 	
-		    4月 06, 2017
+		    1月 23, 2019
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/JS基础/">JS基础</a>
+    <a class="category-link" href="/categories/JS实战/">JS实战</a>, <a class="category-link" href="/categories/JS实战/CSS/">CSS</a>
 
 
     
@@ -207,45 +207,34 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="变量的知识"><a href="#变量的知识" class="headerlink" title="变量的知识"></a>变量的知识</h3><hr>
-<ul>
-<li>变量的作用域：js里可以用函数来创造函数作用域，ES6中有块作用域，作用域里的变量是局部变量，作用域外面访问不到该变量，但在作用域里可以访问到作用域外面的变量。</li>
-<li>变量的生存周期：全局变量的生存周期是永久的，除非主动销毁该全局变量。作用域里的变量当离开该作用域或者离开函数时，局部变量就会被垃圾回收装置自动销毁。<a id="more"></a>
-<h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3></li>
-</ul>
+            <p>我们看到有些网站的文字会有类似于输入的效果，就好像自动打字一样，虽然这个效果用的地方可能不多，但如果用的好的话可能会有奇效，比如在博客、演讲展示等方面应用。那么，怎么实现呢？</p>
+<a id="more"></a>
+<h2 id="使用setTimeout实现"><a href="#使用setTimeout实现" class="headerlink" title="使用setTimeout实现"></a>使用setTimeout实现</h2><p>第一种方法是使用setTimeout进行文字控制，每一个文字都是一个<code>span</code>，利用DOM操作以一定的间隔将每个文字添加到文档中，同时设置<code>opacity:1</code>使其显示出来。光标闪烁的效果则利用<code>border-left</code>进行animation动画展示。</p>
+<h3 id="HTML结构"><a href="#HTML结构" class="headerlink" title="HTML结构"></a>HTML结构</h3><p>先看代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"input-container"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--这里是需要展示的原始文字，设为display:none;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"originWords"</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"typewriter-container"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--这里是最终有文字输入效果的文字--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"typewriter-output"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>解释一下，我们首先把原始文字设为<code>display: none;</code>，这样不会占用文档位置，然后我们给之后添加的文字<code>span</code>块指定class为<code>word</code>。</p>
+<h3 id="CSS设置"><a href="#CSS设置" class="headerlink" title="CSS设置"></a>CSS设置</h3><p>先看代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.input-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.typewriter-container</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.word</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">2s</span> step-start;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.typewriter-output</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: -<span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">14px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">2px</span> solid black;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">2px</span>;</span><br><span class="line">  <span class="attribute">animation</span>: shine <span class="number">1s</span> infinite;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">keyframes</span> shine &#123;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">border-left</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们对<code>word</code>设置<code>transition: opacity 2s step-start;</code>。这里之所以通过<code>opacity</code>来进行transition，是因为transition不支持<code>display</code>，而<code>opacity</code>只需要设置<code>0</code>或<code>1</code>就可以使元素进行显示而不需要重排。</p>
+<p>这里<code>transition-timing-function</code>使用<code>step-start</code>，使其有跳跃的效果，<code>step-start</code>相当于<code>steps(1, jump-start)</code>，<code>steps(n, &lt;jumpterm&gt;)</code>代表transition会停顿n次，每一次的效果为<code>&lt;jumpterm&gt;</code>，<code>jump-start</code>代表第一个跳跃发生在<code>transition</code>刚开始的时候，更多效果见<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function">文档</a>。</p>
+<p>为什么要使用<code>:after</code>呢？因为我是逐步向<code>typewriter-output</code>添加<code>span</code>块，所以一开始宽度是不确定的，而且光标高度也不好设置，所以我想了个笨方法，使用<code>after</code>伪元素生成一个光标，并用<code>animation</code>控制其<code>border-left</code>的显示。但这里有个bug就是文字显示的间隔不能超过300ms，所以说这样处理还是有些问题，以后可能会有更好的方法。</p>
+<h3 id="JS部分"><a href="#JS部分" class="headerlink" title="JS部分"></a>JS部分</h3><p>其实就是利用<code>setTimout</code>设置时间间隔，通过DOM操作进行添加文字，先看代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> words = <span class="built_in">document</span>.querySelector(<span class="string">'.originWords'</span>).innerText;</span><br><span class="line"><span class="keyword">var</span> output = <span class="built_in">document</span>.querySelector(<span class="string">'.typewriter-output'</span>);</span><br><span class="line"><span class="keyword">var</span> word = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> lastWord = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = words.length; i&lt; l; i++) &#123;</span><br><span class="line">  setTimeout(writeWord(i), i * <span class="number">200</span>);	<span class="comment">// 每隔0.2s输出一个文字</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里使用闭包保存i</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeWord</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    word = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>);</span><br><span class="line">    word.classList.add(<span class="string">'word'</span>);</span><br><span class="line">    output.appendChild(word);</span><br><span class="line">    <span class="keyword">if</span> (!lastWord) &#123;</span><br><span class="line">      lastWord = word;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (lastWord !== word) &#123;</span><br><span class="line">     lastWord.style.opacity = <span class="string">'1'</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    word.innerText = words[index];</span><br><span class="line">    lastWord = word;</span><br><span class="line">    <span class="keyword">if</span> (index === words.length - <span class="number">1</span>) &#123;</span><br><span class="line">      lastWord.style.opacity = <span class="string">'1'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码部分很简单，就是先获取需要展示的文字内容，然后每个字都通过dom操作塞进去，设置<code>opacity:1</code>，再进行一下边界判断，就实现了文字的展示。</p>
 <hr>
-<p>我们先来看个例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> f = func();</span><br><span class="line">f();    <span class="comment">// 1</span></span><br><span class="line">f();    <span class="comment">// 2</span></span><br><span class="line">f();    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
-<p>当退出函数后，变量a并没有消失，因为调用var f = func();时，f返回了一个匿名函数的引用，而它可以访问到func()被调用时执行的环境，局部变量a则处在这个环境中，所以a可以被外界访问。这里就产生了所谓的闭包，局部变量a的生命周期被延长了。<br>我们知道，当func()执行后，通常会期待func()内部作用域全部被销毁，因为JS引擎有垃圾回收器用来释放不再使用的内存空间。当某个函数执行完后，一般我们都认为它已经不再使用了，自然会考虑对其回收。而闭包的作用就是让内部作用域依然存在，f()就是对该作用域的引用，而这个引用就叫做闭包。</p>
-<h3 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h3><hr>
-<ul>
-<li>封装变量：把一些不需要暴露在全局的变量封装成“私有变量”。</li>
-<li>延长局部变量寿命：使其不会在退出函数时就立即销毁。</li>
-<li>将函数在定义时的词法作用域以外的地方调用使其可以继续访问定义时的词法作用域。</li>
-</ul>
-<h3 id="闭包与面向对象设计"><a href="#闭包与面向对象设计" class="headerlink" title="闭包与面向对象设计"></a>闭包与面向对象设计</h3><hr>
-<ul>
-<li>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。</li>
-<li><p>闭包实现命令模式:命令模式的意图是把请求封装为对象，从而分离请求的发起者和请求的接收者之间的耦合关系。用闭包实现命令模式如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createCommand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> excute = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiver.open();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> undo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiver.close();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        excute: excute,</span><br><span class="line">        undo: undo</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>闭包与内存管理:使用闭包的一部分原因是我们选择主动把一些变量封装在闭包中，因为可能在以后还需要使用这些变量，把这些变量放在闭包中和放在全局作用域中对内存方面的影响是一致的。如果在将来需要回收这些变量，可以手动把变量设置为null。</p>
-</li>
-</ul>
-<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><hr>
-<p>在定时器、事件监听器、Ajax请求、跨窗口通信、Web Workders或者任何其他的异步（或者同步）任务中，只要使用了回调函数，实际上就是在使用闭包。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wait</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( message );</span><br><span class="line">    &#125;, <span class="number">1000</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">wait(<span class="string">"This is a closure!"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>在这里我们将一个内部函数timer传递给setTimeou，timer具有涵盖wait(…)作用域的闭包，因此包含对变量message的引用。wait(…)执行1000毫秒后，它的内部作用域并不会消失，timer依然保有wait(…)作用域的闭包。</p>
-<h3 id="经典闭包问题"><a href="#经典闭包问题" class="headerlink" title="经典闭包问题"></a>经典闭包问题</h3><hr>
-<p>考虑如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们期待是输出0～5，每隔一秒输出一个数字。但实际上这段代码运行结果是每隔一秒输出一个5。想想就知道，setTimeout设置的延迟函数相当于异步调用，在循环后才执行，而循环结束后i为5,所以输出也就为5。那么问题出在哪呢？<br>我们以为循环时每个迭代都会“捕获”一个i的副本，但是根据作用域工作原理，尽管循环中的五个函数是在不同的迭代定义的，但它们共享一个全局作用域，因此只有一个全局变量i。<br>怎么解决？在循环的每个迭代创建一个闭包作用域。这里就用到IIFE函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(i);</span><br><span class="line">        &#125;, i * <span class="number">1000</span>);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样问题就解决了，我们在每个循环创造一个IIFE匿名函数，并传入全局变量i，使得每个作用域都收到不同的局部变量i并用闭包保存下来，最后输出时就能正确输出i值了。<br>其实我们的解决方法本质上就是每次迭代都需要一个块作用域。在ES6里用let就能很好解决这个问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, i * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因为let声明在每次迭代都会声明i，随后的每个迭代都会使用上一个迭代结束时的值来初始化这个变量。</p>
-<h3 id="闭包在模块中的应用"><a href="#闭包在模块中的应用" class="headerlink" title="闭包在模块中的应用"></a>闭包在模块中的应用</h3><hr>
-<p>考虑以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CoolModule</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sth = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> another = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sth);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnother</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(another.join(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSth: doSth,</span><br><span class="line">        doAnother: doAnother</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = CoolModule();</span><br><span class="line">foo.doSth();</span><br><span class="line">foo.doAnother();</span><br></pre></td></tr></table></figure></p>
-<p>这个模式在js中被称为模块。CoolModule()是一个函数，我们必须通过调用它来创建一个模块实例。该函数返回的是一个对象，这个对象包含了对内部函数的引用，也就是一个闭包，而内部数据变量仍然是隐藏且私有状态。可以说这个对象的返回值就是模块的公共API。每次调用CoolModule()函数相当于创建了一个新的模块实例，然后可以用这个实例调用其内部函数API。<br>简单地说，模块模式需要具备两个必要条件：</p>
-<pre><code>1. 必须有外部的封闭函数，该函数必须至少被调用一次（每次调用创建一个新的模块实例）
-2. 封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态
-</code></pre><p>当只需要一个实例时，我们可以用如下方法实现单例模式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="title">CoolModule</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sth = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> another = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sth);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnother</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(another.join(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSth: doSth,</span><br><span class="line">        doAnother: doAnother</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">foo.doSth();</span><br><span class="line">foo.doAnother();</span><br></pre></td></tr></table></figure></p>
-<p>我们通过一个IIFE立即执行模块函数并返回赋值给foo。通过在模块实例的内部保留对公共API对象的内部引用，可以从内部对模块实例进行修改，包括添加或删除方法和属性，以及修改它们的值。</p>
+<h2 id="纯animation实现"><a href="#纯animation实现" class="headerlink" title="纯animation实现"></a>纯animation实现</h2><p>这次我们不用<code>setTimeout</code>，所有展示的动画全部用<code>animation</code>来实现。废话不多说，我们来看一下。</p>
+<h3 id="HTML结构-1"><a href="#HTML结构-1" class="headerlink" title="HTML结构"></a>HTML结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"typewriter"</span>&gt;</span>Hello, My friend.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这种方法的好处就是不用有一个隐藏的原始文字段落，直接显示想显示的内容。</p>
+<h3 id="CSS设置-1"><a href="#CSS设置-1" class="headerlink" title="CSS设置"></a>CSS设置</h3><p>接下来我们设置CSS：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: black;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">font</span>: bold <span class="number">100%</span> monospace;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">0.1em</span> solid;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2em</span> <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> typing &#123;</span><br><span class="line">    <span class="selector-tag">from</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> cursor-blink &#123;</span><br><span class="line">    50% &#123;</span><br><span class="line">        <span class="attribute">border-color</span>: transparent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看起来很简单对不对？挨？说好的动画呢？别急，我们通过JS来设置<code>animation</code>。</p>
+<h3 id="JS部分-1"><a href="#JS部分-1" class="headerlink" title="JS部分"></a>JS部分</h3><p>先看代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> typewriter = <span class="built_in">document</span>.getElementById(<span class="string">'typewriter'</span>);</span><br><span class="line"><span class="keyword">var</span> words = typewriter.innerText.length;</span><br><span class="line"><span class="keyword">if</span> (words) &#123;</span><br><span class="line">    typewriter.style.width = words + <span class="string">'ch'</span>;</span><br><span class="line">    typewriter.style.animation = <span class="string">'typing 3s steps('</span> + words + <span class="string">', end), cursor-blink 0.5s step-end infinite alternate'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们所做的事就是获取文字段落字符串的长度，然后设置其宽度和动画效果。非常简单！</p>
+<p>那么，为什么这样做可以呢？别急，我们来分析分析。</p>
+<p>首先，在获取了文字字符串长度后，我们设置段落的宽度为<code>width: Xch;</code>，这里X代表字符串长度，<code>ch</code>是长度单位，代表数字“0”的宽度，通常也就是一个字符的宽度。</p>
+<p>然后，我们直接设置<code>animation: typing 3s steps(X, end), cursor-blink 0.5s step-end infinite alternate;</code>，一切就搞定了！为啥？通过CSS我们设置了<code>@keyframe</code>typing，表示宽度从0开始，一直到设置的<code>Xch</code>，持续3s，用<code>steps</code>动画函数，分为X步，也就是有多少个字符，就停顿多少下，达到输入的效果。至于光标的效果，我们直接通过动画设定<code>50%</code>的时候<code>border-color</code>为<code>transparent</code>，则每一秒闪烁一次，因为只有<code>border-right</code>设置了宽度，所以完美达到光标的效果。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>两种方法比较起来，第二种方法更加实用简便，推荐大家使用。这只是简单的CSS3 animation动画应用，今后还可以开动脑筋，实现更多炫酷有趣的效果。</p>
 
             
             <!-- copyright -->
@@ -258,7 +247,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/闭包/">闭包</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/animation/">animation</a> <a class="tag tag--primary tag--small t-link" href="/tags/setTimeout/">setTimeout</a>
 
             </div>
         
@@ -268,7 +257,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/09/leetcode-week1/" data-tooltip="leetcode刷题ing">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -276,7 +265,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/04/http-learning-1/" data-tooltip="深入学习HTTP连接">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/01/12/use-anchor-jump-to-anywhere-in-page/" data-tooltip="如何实现页面不同内容之间的跳转">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -294,7 +283,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -302,7 +291,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-weixin"></i>
                 </a>
             </li>
@@ -310,7 +299,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-weibo"></i>
                 </a>
             </li>
@@ -318,7 +307,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/&amp;title=如何实现文字输入效果">
                     <i class="fa fa-qq"></i>
                 </a>
             </li>
@@ -362,7 +351,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/09/leetcode-week1/" data-tooltip="leetcode刷题ing">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -370,7 +359,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/04/04/http-learning-1/" data-tooltip="深入学习HTTP连接">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/01/12/use-anchor-jump-to-anywhere-in-page/" data-tooltip="如何实现页面不同内容之间的跳转">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -388,7 +377,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -396,7 +385,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-weixin"></i>
                 </a>
             </li>
@@ -404,7 +393,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                     <i class="fa fa-weibo"></i>
                 </a>
             </li>
@@ -412,7 +401,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/&amp;title=如何实现文字输入效果">
                     <i class="fa fa-qq"></i>
                 </a>
             </li>
@@ -447,7 +436,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                 <i class="fa fa-twitter"></i><span>
                     分享到 Twitter</span>
             </a>
@@ -457,7 +446,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2017/04/06/Closures-learning/">
+            <a class="share-option-btn" target="new" href="http://qr.liantu.com/api.php?w=300&amp;m=30&amp;text=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                 <i class="fa fa-weixin"></i><span>
                     分享到朋友圈</span>
             </a>
@@ -467,7 +456,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2017/04/06/Closures-learning/">
+            <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/">
                 <i class="fa fa-weibo"></i><span>
                     分享到 微博</span>
             </a>
@@ -477,7 +466,7 @@
         
         
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2017/04/06/Closures-learning/&amp;title=深刻理解闭包">
+            <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/&amp;title=如何实现文字输入效果">
                 <i class="fa fa-qq"></i><span>
                     分享到 QQ</span>
             </a>
@@ -697,7 +686,7 @@
                 var cs = 'fcb0584c1228acd4317926b1f427051bc6b9f03c';
                 var language = 'zh-CN';
                 var gitalk = new Gitalk({
-                    id: 'Thu Apr 06 2017 20:45:59 GMT+0800', 
+                    id: 'Wed Jan 23 2019 19:01:58 GMT+0800', 
                     owner: owner,
                     repo: repo,
                     admin: [owner],
