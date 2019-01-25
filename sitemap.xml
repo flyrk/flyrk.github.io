@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://flyrk.github.io/about/index.html</loc>
+    
+    <lastmod>2019-01-25T09:10:22.732Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://flyrk.github.io/archives/index.html</loc>
+    
+    <lastmod>2019-01-25T07:08:42.937Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://flyrk.github.io/Tags/index.html</loc>
+    
+    <lastmod>2019-01-25T06:49:02.687Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://flyrk.github.io/2019/01/23/how-to-achieve-typewriter-effect/</loc>
     
     <lastmod>2019-01-23T14:36:47.182Z</lastmod>
@@ -219,27 +240,6 @@
   </url>
   
   <url>
-    <loc>https://flyrk.github.io/all-archives/index.html</loc>
-    
-    <lastmod>2017-08-06T05:31:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://flyrk.github.io/all-tags/index.html</loc>
-    
-    <lastmod>2017-08-06T05:30:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://flyrk.github.io/all-categories/index.html</loc>
-    
-    <lastmod>2017-08-06T05:29:53.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://flyrk.github.io/2017/04/13/Tecent-Interview-one/</loc>
     
     <lastmod>2017-04-18T12:57:45.000Z</lastmod>
@@ -264,13 +264,6 @@
     <loc>https://flyrk.github.io/2017/04/03/thoughts/</loc>
     
     <lastmod>2017-04-06T15:31:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://flyrk.github.io/guestbook/index.html</loc>
-    
-    <lastmod>2017-04-03T05:46:52.000Z</lastmod>
     
   </url>
   
