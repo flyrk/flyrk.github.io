@@ -2,9 +2,11 @@
 title: React中如何更新state
 date: 2017-08-04 20:49:46
 categories:
-- 前端框架
+- JS相关
 tags:
 - React
+- 前端框架
+- state
 ---
 
 我们知道，React中最重要的概念就是state和props，我们在写每一个组件时，都可以为该组件创建一个state，用以保存当前组件的数据。那么如何去更新state就是一个重要的问题了。

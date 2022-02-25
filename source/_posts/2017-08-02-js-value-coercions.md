@@ -3,9 +3,9 @@ title: javascript类型转换
 date: 2017-08-02 13:55:02
 toc: true
 categories:
-- JavaScript
+- JS相关
 tags:
-- JS基础
+- JS原理
 ---
 
 JavaScript中有七种类型，它们互相之间可以转换，但要搞清楚其中的转换关系可不简单。

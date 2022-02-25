@@ -2,9 +2,8 @@
 title: 浅谈函数节流与函数去抖
 date: 2017-05-01 19:37:31
 categories:
-- JS基础
+- JS相关
 tags:
-- Function
 - throttle
 - debounce
 ---

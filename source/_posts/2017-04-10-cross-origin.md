@@ -2,7 +2,7 @@
 title: 浏览器跨域问题
 date: 2017-04-10 23:05:26
 categories:
-- 网络
+- Web相关
 tags:
 - 跨域
 ---

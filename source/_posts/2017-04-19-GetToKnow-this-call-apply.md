@@ -2,11 +2,9 @@
 title: 浅谈this和call、apply
 date: 2017-04-19 21:46:45
 categories:
-- JS基础
+- JS相关
 tags:
-- this
-- call
-- apply
+- JS原理
 ---
 
 this的指向一直是很多人头疼的问题，我之前也经常弄混，后来整理了一下，感觉开朗了许多，在这里列出来以供参考

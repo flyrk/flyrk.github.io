@@ -2,8 +2,7 @@
 title: 二叉搜索树JavaScript实现
 date: 2017-04-03 14:24:32
 tags: 
-- Tree
-- JavaScript
+- 二叉树
 categories: 算法
 ---
 
