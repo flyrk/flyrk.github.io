@@ -33,6 +33,31 @@
     
     
     <entry>
+      <title>git命令手册（持续更新）</title>
+      <link href="/2020/01/25/git-commend-list/"/>
+      <url>/2020/01/25/git-commend-list/</url>
+      
+        <content type="html"><![CDATA[<p>本篇不定时更新git实践技巧，方便查阅git命令。</p><span id="more"></span><h1 id="分支相关操作"><a href="#分支相关操作" class="headerlink" title="分支相关操作"></a>分支相关操作</h1><h2 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h2><p>切换分支，例如：<code>git checkout -b $&#123;branch_name&#125;</code></p><h2 id="git-show"><a href="#git-show" class="headerlink" title="git show"></a>git show</h2><p>显示各种类型的对象。可以是blobs，树，标签和提交。</p><h2 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h2><p>对本地远程增删改查</p><p>git remote -v 获取远程分支信息</p><h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h2><p>从远端拉取代码，默认拉取<code>origin</code>。</p><h2 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h2><p>合并分支操作，例如：<code>git merge master</code>，把<code>master</code>分支的内容合并到当前分支。</p><h2 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h2><p>拉取代码，用得最多的命令。pull &#x3D; fetch + merge</p><h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>推送代码到远程分支。</p><h1 id="修改相关操作"><a href="#修改相关操作" class="headerlink" title="修改相关操作"></a>修改相关操作</h1><h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>添加变更，最常用的命令：<code>git add .</code>，添加当前所有变更。</p><h2 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h2><p>查看当前git状态。</p><h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>对比两个分支的差异。</p><h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h2><p>缓存当前变更，一般在要切换到别的分支，而当前分支的变更又不想提交时用。<code>git stash</code>，然后恢复的时候：<code>git stash apply</code>。</p><h1 id="提交相关操作"><a href="#提交相关操作" class="headerlink" title="提交相关操作"></a>提交相关操作</h1><h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h2><p>提交变更，最常用的命令：<code>git commit -m &quot;commit message&quot;</code>。</p><h2 id="git-revert"><a href="#git-revert" class="headerlink" title="git revert"></a>git revert</h2><p>撤销某次版本，<code>git revert -n 版本号</code></p><h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h2><p>查看git提交信息。</p><h1 id="奇淫技巧"><a href="#奇淫技巧" class="headerlink" title="奇淫技巧"></a>奇淫技巧</h1><ul><li>git blame 查看文件每一行修改记录</li><li>git reflog 查看操作记录</li><li>git rebase -i HEAD-n 修改已提交的前n个commit操作</li><li>更新子模块url：<code>git submodule sync --recursive</code></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>我是如何当上程序员的（二）</title>
       <link href="/2019/08/25/how-can-i-be-a-programmer-2/"/>
       <url>/2019/08/25/how-can-i-be-a-programmer-2/</url>
