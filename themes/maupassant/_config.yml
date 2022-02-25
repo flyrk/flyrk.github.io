@@ -109,7 +109,7 @@ menu:
     directory: about/
     icon: fa-user
   - page: rss
-    directory: atom.xml
+    directory: rss2.xml
     icon: fa-rss
 
 widgets: ## Six widgets in sidebar provided: search, category, tag, recent_posts, recent_comments and links.
