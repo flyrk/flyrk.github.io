@@ -5,3 +5,4 @@ public
 package-lock.json
 node_modules
 debug.log
+.deploy_git

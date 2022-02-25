@@ -79,7 +79,7 @@ theme: maupassant
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:flyrk/flyrk.github.io.git
+  repo: https://github.com/flyrk/flyrk.github.io.git
   branch: master
 
 # JiaThis 分享服务
