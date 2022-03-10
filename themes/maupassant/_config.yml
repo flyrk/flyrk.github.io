@@ -58,7 +58,7 @@ google_search: false ## Use Google search, true/false.
 baidu_search: false ## Use Baidu search, true/false.
 swiftype: ## Your swiftype_key, e.g. m7b11ZrsT8Me7gzApciT
 self_search: true ## Use a jQuery-based local search engine, true/false.
-google_analytics: ## Your Google Analytics tracking id, e.g. UA-42425684-2
+google_analytics: G-WL4FJB49FS ## Your Google Analytics tracking id, e.g. UA-42425684-2
 baidu_analytics: deaa76c48a79514034d820a7265ff8c9 ## Your Baidu Analytics tracking id, e.g. 8006843039519956000
 clarity_analytics: aqkh9fgrxy ## clarity analytics
 fancybox: true ## If you want to use fancybox please set the value to true.

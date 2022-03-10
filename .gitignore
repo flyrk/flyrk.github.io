@@ -6,4 +6,4 @@ package-lock.json
 node_modules
 debug.log
 db.json
-.deploy_git
+.deploy_git/
